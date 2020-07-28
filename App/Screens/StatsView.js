@@ -1,34 +1,65 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
+import { Entypo } from "@expo/vector-icons";
+
+const upArrow = <Entypo name="chevron-thin-up" size={30} color="black" />;
+const downArrow = <Entypo name="chevron-thin-down" size={30} color="black" />;
 
 export default class Stats_View extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isClicked: true,
+    };
+    this.toggleClick = this.toggleClick.bind(this);
+  }
+
+  toggleClick() {
+    this.setState({ isClicked: !this.state.isClicked });
   }
 
   render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.innerContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Team Stats</Text>
-          </View>
+    let arrow = this.state.isClicked ? upArrow : downArrow;
 
-          <View style={styles.teamFlexContainer}>
-            <View style={styles.teamBox}>
-              <Text style={styles.teamTitle}>Team 1</Text>
-              <StatsData />
+    return (
+      <SafeAreaView>
+        <View style={styles.container}>
+          <View style={styles.innerContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Team Stats</Text>
             </View>
 
-            <View style={styles.teamBox}>
-              <Text style={styles.teamTitle}>Team 2</Text>
-              <StatsData />
+            <View style={styles.teamFlexContainer}>
+              <View style={styles.teamBox}>
+                <Text style={styles.teamTitle}>Team 1</Text>
+                <StatsData />
+              </View>
+
+              <View style={styles.divider} />
+
+              <View style={styles.teamBox}>
+                <Text style={styles.teamTitle}>Team 2</Text>
+                <StatsData />
+              </View>
             </View>
           </View>
         </View>
+        <TouchableOpacity
+          style={styles.arrow}
+          activeOpacity={0.5}
+          onPress={this.toggleClick}
+        >
+          <Text>{arrow}</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -39,14 +70,14 @@ const styles = StyleSheet.create({
   // Main Container
   // ====================
   container: {
-    flex: 1,
     backgroundColor: "aliceblue",
     alignItems: "center",
     justifyContent: "flex-start",
     top: 35,
     borderWidth: 2,
     borderRadius: 20,
-    height: 100,
+    height: 310,
+    margin: 6,
   },
   // ====================
   // Inner Container
@@ -76,17 +107,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "red",
     borderRadius: 20,
+    height: 250,
   },
   teamBox: {
     margin: 5,
-    width: 150,
-    borderWidth: 1,
+    width: 160,
     alignItems: "center",
-    borderColor: "blue",
     borderRadius: 20,
   },
   teamTitle: {
     fontSize: 16,
     textDecorationLine: "underline",
+    marginBottom: -4,
+  },
+  divider: {
+    borderLeftWidth: 3,
+    borderLeftColor: "black",
+  },
+  // ====================
+  // Arrow Styles
+  // ====================
+  arrow: {
+    top: 28,
+    display: "flex",
+    alignItems: "center",
+    borderWidth: 1,
+    borderRadius: 15,
   },
 });
