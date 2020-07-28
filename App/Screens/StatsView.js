@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   SafeAreaView,
   TouchableOpacity,
   Button,
@@ -28,16 +29,12 @@ export default class Stats_View extends React.Component {
   }
 
   render() {
-    let arrow = this.state.isClicked ? upArrow : downArrow;
+    const arrow = this.state.isClicked ? upArrow : downArrow;
 
-    return (
+    const results = (
       <SafeAreaView>
-        <View style={styles.container}>
+        <View style={styles.visibleContainer}>
           <View style={styles.innerContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Team Stats</Text>
-            </View>
-
             <View style={styles.teamFlexContainer}>
               <View style={styles.teamBox}>
                 <Text style={styles.teamTitle}>Team 1</Text>
@@ -62,21 +59,96 @@ export default class Stats_View extends React.Component {
         </TouchableOpacity>
       </SafeAreaView>
     );
+
+    const secondPage = (
+      <SafeAreaView>
+        <View style={styles.partialContainer}>
+          <View style={styles.partialTeamBox}>
+            <Image
+              style={styles.partialLogo}
+              source={require("./StatsViewComp/mercedes.png")}
+            ></Image>
+
+            <View>
+              <Text style={styles.partialTitle}> Team 1</Text>
+            </View>
+
+            <View>
+              <Text style={styles.partialTitle}> Team 1</Text>
+            </View>
+          </View>
+
+          <View style={styles.partialTeamBox}>
+            <Image
+              style={styles.partialLogo}
+              source={require("./StatsViewComp/mercedes.png")}
+            ></Image>
+
+            <View>
+              <Text style={styles.partialTitle}> Team 2</Text>
+            </View>
+
+            <View>
+              <Text style={styles.partialTitle}> Team 2</Text>
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+
+    return secondPage;
   }
 }
 
 const styles = StyleSheet.create({
   // ====================
+  // Partial Container Styles
+  // ====================
+  partialContainer: {
+    backgroundColor: "aliceblue",
+    justifyContent: "center",
+    flexDirection: "row",
+    top: 35,
+    borderWidth: 2,
+    borderRadius: 20,
+    height: 60,
+    margin: 6,
+    padding: 6,
+  },
+  partialTeamBox: {
+    justifyContent: "center",
+    flexDirection: "row",
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    flex: 1,
+  },
+  // ====================
+  // Partial Stats Detail Style
+  // ====================
+  partialLogo: {
+    height: 30,
+    width: 30,
+    borderRadius: 30 / 2,
+    borderWidth: 1,
+  },
+  partialTitle: {
+    paddingHorizontal: 5,
+    lineHeight: 30,
+  },
+  partialScore: {
+    lineHeight: 30,
+  },
+  // ====================
   // Main Container
   // ====================
-  container: {
+  visibleContainer: {
     backgroundColor: "aliceblue",
     alignItems: "center",
     justifyContent: "flex-start",
     top: 35,
     borderWidth: 2,
     borderRadius: 20,
-    height: 310,
+    height: 270,
     margin: 6,
   },
   // ====================
