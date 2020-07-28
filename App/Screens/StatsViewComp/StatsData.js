@@ -29,15 +29,15 @@ export default class Stats_Data extends React.Component {
     super(props);
     this.state = {
       score: this.props.score,
-      team1Wins: 0,
-      team1Losses: 0,
-      team1Draws: 0,
+      wins: this.props.wins,
+      losses: this.props.losses,
+      draws: this.props.draws,
       name: fakePlayers,
     };
   }
 
   render() {
-    const { score, team1Wins, team1Losses, team1Draws, name } = this.state;
+    const { score, wins, losses, draws, name } = this.state;
     const renderItem = ({ item }) => (
       <Text style={styles.playerName}>{item.name}</Text>
     );
@@ -49,13 +49,13 @@ export default class Stats_Data extends React.Component {
             Score: <Text style={styles.scorePoints}>{score}</Text>
           </Text>
           <Text style={styles.title}>
-            Wins: <Text style={styles.scorePoints}>{team1Wins}</Text>
+            Wins: <Text style={styles.scorePoints}>{wins}</Text>
           </Text>
           <Text style={styles.title}>
-            Losses: <Text style={styles.scorePoints}>{team1Losses}</Text>
+            Losses: <Text style={styles.scorePoints}>{losses}</Text>
           </Text>
           <Text style={styles.title}>
-            Draws: <Text style={styles.scorePoints}>{team1Draws}</Text>
+            Draws: <Text style={styles.scorePoints}>{draws}</Text>
           </Text>
         </View>
 
@@ -68,13 +68,6 @@ export default class Stats_Data extends React.Component {
             )}
           />
         </View>
-
-        <View style={styles.dataBox}>
-          <Image
-            style={styles.teamLogo}
-            source={require("./mercedes.png")}
-          ></Image>
-        </View>
       </View>
     );
   }
@@ -85,18 +78,19 @@ const styles = StyleSheet.create({
     width: 130,
     margin: 10,
     alignItems: "center",
+    flex: 1,
   },
   dataBox: {
     marginBottom: 5,
-    height: 70,
+    height: 95,
   },
   // ====================
   // Team Logo Styles
   // ====================
   teamLogo: {
-    width: 50,
-    height: 50,
-    borderRadius: 50 / 2,
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
     borderWidth: 1,
   },
   // ====================
