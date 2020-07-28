@@ -29,14 +29,15 @@ export default class Stats_Data extends React.Component {
     super(props);
     this.state = {
       score: this.props.score,
-      wins: 0,
-      losses: 0,
+      team1Wins: 0,
+      team1Losses: 0,
+      team1Draws: 0,
       name: fakePlayers,
     };
   }
 
   render() {
-    const { score, wins, losses, name } = this.state;
+    const { score, team1Wins, team1Losses, team1Draws, name } = this.state;
     const renderItem = ({ item }) => (
       <Text style={styles.playerName}>{item.name}</Text>
     );
@@ -48,10 +49,13 @@ export default class Stats_Data extends React.Component {
             Score: <Text style={styles.scorePoints}>{score}</Text>
           </Text>
           <Text style={styles.title}>
-            Wins: <Text style={styles.scorePoints}>{wins}</Text>
+            Wins: <Text style={styles.scorePoints}>{team1Wins}</Text>
           </Text>
           <Text style={styles.title}>
-            Losses: <Text style={styles.scorePoints}>{losses}</Text>
+            Losses: <Text style={styles.scorePoints}>{team1Losses}</Text>
+          </Text>
+          <Text style={styles.title}>
+            Draws: <Text style={styles.scorePoints}>{team1Draws}</Text>
           </Text>
         </View>
 
