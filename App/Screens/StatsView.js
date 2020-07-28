@@ -5,11 +5,12 @@ import {
   Text,
   View,
   SafeAreaView,
-  TouchableHighlight,
+  TouchableOpacity,
   Button,
 } from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
 import { Entypo } from "@expo/vector-icons";
+
 const upArrow = <Entypo name="chevron-thin-up" size={30} color="black" />;
 const downArrow = <Entypo name="chevron-thin-down" size={30} color="black" />;
 
@@ -52,9 +53,13 @@ export default class Stats_View extends React.Component {
             </View>
           </View>
         </View>
-        <TouchableHighlight style={styles.arrow} onPress={this.toggleClick}>
+        <TouchableOpacity
+          style={styles.arrow}
+          activeOpacity={0.5}
+          onPress={this.toggleClick}
+        >
           <Text>{arrow}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
     top: 35,
     borderWidth: 2,
     borderRadius: 20,
-    height: 330,
+    height: 310,
     margin: 6,
   },
   // ====================
@@ -102,6 +107,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "red",
     borderRadius: 20,
+    height: 250,
   },
   teamBox: {
     margin: 5,
@@ -118,6 +124,9 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: "black",
   },
+  // ====================
+  // Arrow Styles
+  // ====================
   arrow: {
     top: 28,
     display: "flex",
