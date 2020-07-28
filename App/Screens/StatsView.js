@@ -12,23 +12,23 @@ export default class Stats_View extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <SafeAreaView style={styles.innerContainer}>
-          <SafeAreaView style={styles.titleContainer}>
+        <View style={styles.innerContainer}>
+          <View style={styles.titleContainer}>
             <Text style={styles.title}>Team Stats</Text>
-          </SafeAreaView>
+          </View>
 
-          <SafeAreaView style={styles.teamFlexContainer}>
-            <SafeAreaView style={styles.teamBox}>
+          <View style={styles.teamFlexContainer}>
+            <View style={styles.teamBox}>
               <Text style={styles.teamTitle}>Team 1</Text>
               <StatsData />
-            </SafeAreaView>
+            </View>
 
-            <SafeAreaView style={styles.teamBox}>
+            <View style={styles.teamBox}>
               <Text style={styles.teamTitle}>Team 2</Text>
               <StatsData />
-            </SafeAreaView>
-          </SafeAreaView>
-        </SafeAreaView>
+            </View>
+          </View>
+        </View>
       </SafeAreaView>
     );
   }

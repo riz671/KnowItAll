@@ -38,14 +38,14 @@ export default class Stats_Data extends React.Component {
     );
 
     return (
-      <SafeAreaView style={styles.dataContainer}>
-        <SafeAreaView style={styles.dataBox}>
+      <View style={styles.dataContainer}>
+        <View style={styles.dataBox}>
           <Text style={styles.title}>
             Score: <Text style={styles.points}>{this.state.score}</Text>
           </Text>
-        </SafeAreaView>
+        </View>
 
-        <SafeAreaView style={styles.dataBox}>
+        <View style={styles.dataBox}>
           <Text style={styles.title}>Players:</Text>
           <FlatList
             data={fakePlayers}
@@ -53,15 +53,15 @@ export default class Stats_Data extends React.Component {
               <Text style={styles.playerName}>{item.name}</Text>
             )}
           />
-        </SafeAreaView>
+        </View>
 
-        <SafeAreaView style={styles.dataBox}>
+        <View style={styles.dataBox}>
           <Image
             style={styles.teamLogo}
             source={require("./mercedes.png")}
           ></Image>
-        </SafeAreaView>
-      </SafeAreaView>
+        </View>
+      </View>
     );
   }
 }
