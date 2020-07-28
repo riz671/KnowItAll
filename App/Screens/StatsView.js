@@ -20,10 +20,12 @@ export default class Stats_View extends React.Component {
           <SafeAreaView style={styles.teamFlexContainer}>
             <SafeAreaView style={styles.teamBox}>
               <Text style={styles.teamTitle}>Team 1</Text>
+              <StatsData />
             </SafeAreaView>
 
             <SafeAreaView style={styles.teamBox}>
               <Text style={styles.teamTitle}>Team 2</Text>
+              <StatsData />
             </SafeAreaView>
           </SafeAreaView>
         </SafeAreaView>
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
   // ====================
   container: {
     flex: 1,
-    backgroundColor: "#F0FFFF",
+    backgroundColor: "aliceblue",
     alignItems: "center",
     justifyContent: "flex-start",
     top: 35,
@@ -72,14 +74,19 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     borderWidth: 1,
+    borderColor: "red",
+    borderRadius: 20,
   },
   teamBox: {
     margin: 5,
     width: 150,
     borderWidth: 1,
     alignItems: "center",
+    borderColor: "blue",
+    borderRadius: 20,
   },
   teamTitle: {
     fontSize: 16,
+    textDecorationLine: "underline",
   },
 });
