@@ -20,6 +20,7 @@ export default class Stats_View extends React.Component {
     super(props);
     this.state = {
       isClicked: true,
+      score: 0,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -32,71 +33,77 @@ export default class Stats_View extends React.Component {
     const arrow = this.state.isClicked ? upArrow : downArrow;
 
     const results = (
-      <SafeAreaView>
-        <View style={styles.visibleContainer}>
-          <View style={styles.innerContainer}>
-            <View style={styles.teamFlexContainer}>
-              <View style={styles.teamBox}>
-                <Text style={styles.teamTitle}>Team 1</Text>
-                <StatsData />
-              </View>
+      <View style={styles.visibleContainer}>
+        <View style={styles.innerContainer}>
+          <View style={styles.teamFlexContainer}>
+            <View style={styles.teamBox}>
+              <Text style={styles.teamTitle}>Team 1</Text>
 
-              <View style={styles.divider} />
+              <StatsData />
+            </View>
 
-              <View style={styles.teamBox}>
-                <Text style={styles.teamTitle}>Team 2</Text>
-                <StatsData />
-              </View>
+            <View style={styles.divider} />
+
+            <View style={styles.teamBox}>
+              <Text style={styles.teamTitle}>Team 2</Text>
+
+              <StatsData />
             </View>
           </View>
         </View>
+      </View>
+    );
+
+    const secondPage = (
+      <View style={styles.partialContainer}>
+        <View style={styles.partialTeamBox}>
+          <Image
+            style={styles.partialLogo}
+            source={require("./StatsViewComp/mercedes.png")}
+          ></Image>
+
+          <View>
+            <Text style={styles.partialTitle}> Team 1</Text>
+          </View>
+
+          <View>
+            <Text style={styles.partialScore}> {this.state.score}</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        <View style={styles.partialTeamBox}>
+          <Image
+            style={styles.partialLogo}
+            source={require("./StatsViewComp/mercedes.png")}
+          ></Image>
+
+          <View>
+            <Text style={styles.partialTitle}> Team 2</Text>
+          </View>
+
+          <View>
+            <Text style={styles.partialScore}> {this.state.score}</Text>
+          </View>
+        </View>
+      </View>
+    );
+
+    const correctContainer = this.state.isClicked ? results : secondPage;
+
+    return (
+      <SafeAreaView>
+        {correctContainer}
         <TouchableOpacity
           style={styles.arrow}
-          activeOpacity={0.5}
+          activeOpacity={0.3}
           onPress={this.toggleClick}
         >
           <Text>{arrow}</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
-
-    const secondPage = (
-      <SafeAreaView>
-        <View style={styles.partialContainer}>
-          <View style={styles.partialTeamBox}>
-            <Image
-              style={styles.partialLogo}
-              source={require("./StatsViewComp/mercedes.png")}
-            ></Image>
-
-            <View>
-              <Text style={styles.partialTitle}> Team 1</Text>
-            </View>
-
-            <View>
-              <Text style={styles.partialTitle}> Team 1</Text>
-            </View>
-          </View>
-
-          <View style={styles.partialTeamBox}>
-            <Image
-              style={styles.partialLogo}
-              source={require("./StatsViewComp/mercedes.png")}
-            ></Image>
-
-            <View>
-              <Text style={styles.partialTitle}> Team 2</Text>
-            </View>
-
-            <View>
-              <Text style={styles.partialTitle}> Team 2</Text>
-            </View>
-          </View>
-        </View>
-      </SafeAreaView>
-    );
-
-    return secondPage;
   }
 }
 
@@ -108,18 +115,17 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue",
     justifyContent: "center",
     flexDirection: "row",
-    top: 35,
+    top: 10,
     borderWidth: 2,
     borderRadius: 20,
-    height: 60,
+    height: 54,
     margin: 6,
-    padding: 6,
+    padding: 10,
   },
   partialTeamBox: {
     justifyContent: "center",
     flexDirection: "row",
     paddingHorizontal: 10,
-    borderWidth: 1,
     flex: 1,
   },
   // ====================
@@ -132,11 +138,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   partialTitle: {
+    flex: 3,
     paddingHorizontal: 5,
     lineHeight: 30,
+    fontSize: 20,
   },
   partialScore: {
+    flex: 3,
     lineHeight: 30,
+    fontWeight: "bold",
+    fontSize: 24,
+    paddingLeft: 10,
   },
   // ====================
   // Main Container
@@ -145,7 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue",
     alignItems: "center",
     justifyContent: "flex-start",
-    top: 35,
+    top: 10,
     borderWidth: 2,
     borderRadius: 20,
     height: 270,
@@ -176,8 +188,6 @@ const styles = StyleSheet.create({
   teamFlexContainer: {
     display: "flex",
     flexDirection: "row",
-    borderWidth: 1,
-    borderColor: "red",
     borderRadius: 20,
     height: 250,
   },
@@ -200,7 +210,7 @@ const styles = StyleSheet.create({
   // Arrow Styles
   // ====================
   arrow: {
-    top: 28,
+    top: 3,
     display: "flex",
     alignItems: "center",
     borderWidth: 1,
