@@ -9,6 +9,7 @@ import {
   FlatList,
 } from "react-native";
 
+// in future allow teams to
 let fakePlayers = [
   { id: 0, name: "Koboh" },
   { id: 1, name: "Russell" },
@@ -28,11 +29,14 @@ export default class Stats_Data extends React.Component {
     super(props);
     this.state = {
       score: 0,
+      wins: 0,
+      losses: 0,
       name: fakePlayers,
     };
   }
 
   render() {
+    const { score, wins, losses, name } = this.state;
     const renderItem = ({ item }) => (
       <Text style={styles.playerName}>{item.name}</Text>
     );
@@ -41,14 +45,20 @@ export default class Stats_Data extends React.Component {
       <View style={styles.dataContainer}>
         <View style={styles.dataBox}>
           <Text style={styles.title}>
-            Score: <Text style={styles.points}>{this.state.score}</Text>
+            Score: <Text style={styles.scorePoints}>{score}</Text>
+          </Text>
+          <Text style={styles.title}>
+            Wins: <Text style={styles.scorePoints}>{wins}</Text>
+          </Text>
+          <Text style={styles.title}>
+            Losses: <Text style={styles.scorePoints}>{losses}</Text>
           </Text>
         </View>
 
         <View style={styles.dataBox}>
           <Text style={styles.title}>Players:</Text>
           <FlatList
-            data={fakePlayers}
+            data={name}
             renderItem={({ item }) => (
               <Text style={styles.playerName}>{item.name}</Text>
             )}
@@ -68,13 +78,13 @@ export default class Stats_Data extends React.Component {
 
 const styles = StyleSheet.create({
   dataContainer: {
-    borderColor: "green",
-    borderWidth: 1,
     width: 130,
     margin: 10,
+    alignItems: "center",
   },
   dataBox: {
     marginBottom: 5,
+    height: 70,
   },
   // ====================
   // Team Logo Styles
@@ -88,7 +98,7 @@ const styles = StyleSheet.create({
   // ====================
   // Score Styles
   // ====================
-  points: {
+  scorePoints: {
     fontWeight: "bold",
     fontSize: 18,
   },
@@ -100,8 +110,8 @@ const styles = StyleSheet.create({
   },
   playerName: {
     width: 80,
-    left: 20,
     color: "black",
     marginBottom: 2,
+    alignItems: "center",
   },
 });
