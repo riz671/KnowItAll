@@ -20,6 +20,8 @@ export default class Stats_View extends React.Component {
     super(props);
     this.state = {
       isClicked: true,
+      team1Name: "Team 3",
+      team2Name: "Team 6",
       team1Score: 1000,
       team2Score: 500,
       team1Wins: 1,
@@ -36,6 +38,8 @@ export default class Stats_View extends React.Component {
   render() {
     let {
       isClicked,
+      team1Name,
+      team2Name,
       team1Score,
       team2Score,
       team1Wins,
@@ -56,9 +60,10 @@ export default class Stats_View extends React.Component {
                   source={require("./StatsViewComp/mercedes.png")}
                 ></Image>
 
-                <Text style={styles.teamTitle}>Team 1</Text>
+                <Text style={styles.teamTitle}>{team1Name}</Text>
               </View>
               <StatsData
+                teamName={team1Name}
                 score={team1Score}
                 wins={team1Wins}
                 losses={team1Losses}
@@ -75,10 +80,11 @@ export default class Stats_View extends React.Component {
                   source={require("./StatsViewComp/mercedes.png")}
                 ></Image>
 
-                <Text style={styles.teamTitle}>Team 2</Text>
+                <Text style={styles.teamTitle}>{team2Name}</Text>
               </View>
 
               <StatsData
+                teamName={team2Name}
                 score={team2Score}
                 wins={team1Losses}
                 losses={team1Wins}
@@ -99,7 +105,7 @@ export default class Stats_View extends React.Component {
           ></Image>
 
           <View>
-            <Text style={styles.partialTitle}> Team 1</Text>
+            <Text style={styles.partialTitle}>{team1Name}</Text>
           </View>
 
           <View>
@@ -116,7 +122,7 @@ export default class Stats_View extends React.Component {
           ></Image>
 
           <View>
-            <Text style={styles.partialTitle}> Team 2</Text>
+            <Text style={styles.partialTitle}>{team2Name}</Text>
           </View>
 
           <View>
