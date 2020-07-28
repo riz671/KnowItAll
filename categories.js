@@ -1,61 +1,75 @@
-export default Endpoints = {
-  animals: {
+const Categories = [
+  {
+    endpoint: 'animals',
     title: 'Animals',
     api: 'https://opentdb.com/api.php?amount=1&category=27&difficulty=easy',
   },
 
-  anime: {
+  {
+    endpoint: 'anime',
     title: 'Anime & Manga',
     api: 'https://opentdb.com/api.php?amount=1&category=31&difficulty=easy',
   },
 
-  cartoons: {
+  {
+    endpoint: 'cartoons',
     title: 'Cartoons & Animations',
     api: 'https://opentdb.com/api.php?amount=1&category=32&difficulty=easy',
   },
 
-  celebrities: {
+  {
+    endpoint: 'celebrities',
     title: 'Celebrities',
     api: 'https://opentdb.com/api.php?amount=1&category=26&difficulty=easy',
   },
 
-  computers: {
+  {
+    endpoint: 'computers',
     title: 'Computers',
     api: 'https://opentdb.com/api.php?amount=1&category=18&difficulty=easy',
   },
 
-  film: {
+  {
+    endpoint: 'film',
     title: 'Film',
     api: 'https://opentdb.com/api.php?amount=1&category=11&difficulty=easy',
   },
 
-  general: {
+  {
+    endpoint: 'general',
     title: 'General Knowledge',
     api: 'https://opentdb.com/api.php?amount=1&category=9&difficulty=easy',
   },
 
-  geography: {
+  {
+    endpoint: 'geography',
     title: 'Geography',
     api: 'https://opentdb.com/api.php?amount=1&category=22&difficulty=easy',
   },
 
-  history: {
+  {
+    endpoint:'geography',
     title: 'History',
     api: 'https://opentdb.com/api.php?amount=1&category=23&difficulty=easy',
   },
 
-  music: {
+  {
+    endpoint: 'music',
     title: 'Music',
     api: 'https://opentdb.com/api.php?amount=1&category=12&difficulty=easy',
   },
 
-  sports: {
+  {
+    endpoint: 'sports',
     title: 'Sports',
     api: 'https://opentdb.com/api.php?amount=1&category=21&difficulty=easy',
   },
 
-  television: {
+  {
+    endpoint: 'television',
     title: 'Television',
     api: 'https://opentdb.com/api.php?amount=1&category=14&difficulty=easy',
   }
-}
+]
+
+export default Categories;
