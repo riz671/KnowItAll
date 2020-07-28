@@ -1,0 +1,92 @@
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import StatsData from "./StatsViewComp/StatsData.js";
+
+export default class Stats_View extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.innerContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Team Stats</Text>
+          </View>
+
+          <View style={styles.teamFlexContainer}>
+            <View style={styles.teamBox}>
+              <Text style={styles.teamTitle}>Team 1</Text>
+              <StatsData />
+            </View>
+
+            <View style={styles.teamBox}>
+              <Text style={styles.teamTitle}>Team 2</Text>
+              <StatsData />
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  // ====================
+  // Main Container
+  // ====================
+  container: {
+    flex: 1,
+    backgroundColor: "aliceblue",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    top: 35,
+    borderWidth: 2,
+    borderRadius: 20,
+    height: 100,
+  },
+  // ====================
+  // Inner Container
+  // ====================
+  innerContainer: {
+    margin: 10,
+  },
+  // ====================
+  // Title Container
+  // ====================
+
+  titleContainer: {
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "600",
+    textDecorationLine: "underline",
+    marginBottom: 5,
+  },
+  // ====================
+  // Team Styles
+  // ====================
+  teamFlexContainer: {
+    display: "flex",
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "red",
+    borderRadius: 20,
+  },
+  teamBox: {
+    margin: 5,
+    width: 150,
+    borderWidth: 1,
+    alignItems: "center",
+    borderColor: "blue",
+    borderRadius: 20,
+  },
+  teamTitle: {
+    fontSize: 16,
+    textDecorationLine: "underline",
+  },
+});
