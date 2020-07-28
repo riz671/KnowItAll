@@ -20,7 +20,8 @@ export default class Stats_View extends React.Component {
     super(props);
     this.state = {
       isClicked: true,
-      score: 0,
+      team1Score: 1000,
+      team2Score: 500,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -30,6 +31,8 @@ export default class Stats_View extends React.Component {
   }
 
   render() {
+    let { isClicked, team1Score, team2Score } = this.state;
+
     const arrow = this.state.isClicked ? upArrow : downArrow;
 
     const results = (
@@ -39,7 +42,7 @@ export default class Stats_View extends React.Component {
             <View style={styles.teamBox}>
               <Text style={styles.teamTitle}>Team 1</Text>
 
-              <StatsData />
+              <StatsData score={team1Score} />
             </View>
 
             <View style={styles.divider} />
@@ -47,7 +50,7 @@ export default class Stats_View extends React.Component {
             <View style={styles.teamBox}>
               <Text style={styles.teamTitle}>Team 2</Text>
 
-              <StatsData />
+              <StatsData score={team2Score} />
             </View>
           </View>
         </View>
@@ -67,7 +70,7 @@ export default class Stats_View extends React.Component {
           </View>
 
           <View>
-            <Text style={styles.partialScore}> {this.state.score}</Text>
+            <Text style={styles.partialScore}> {team1Score}</Text>
           </View>
         </View>
 
@@ -84,7 +87,7 @@ export default class Stats_View extends React.Component {
           </View>
 
           <View>
-            <Text style={styles.partialScore}> {this.state.score}</Text>
+            <Text style={styles.partialScore}> {team2Score}</Text>
           </View>
         </View>
       </View>
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
   },
   partialTitle: {
     flex: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 3,
     lineHeight: 30,
     fontSize: 20,
   },
@@ -147,8 +150,7 @@ const styles = StyleSheet.create({
     flex: 3,
     lineHeight: 30,
     fontWeight: "bold",
-    fontSize: 24,
-    paddingLeft: 10,
+    fontSize: 20,
   },
   // ====================
   // Main Container

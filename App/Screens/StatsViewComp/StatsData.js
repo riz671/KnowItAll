@@ -28,7 +28,7 @@ export default class Stats_Data extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      score: 0,
+      score: this.props.score,
       wins: 0,
       losses: 0,
       name: fakePlayers,
