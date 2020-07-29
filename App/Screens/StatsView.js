@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
 import { Entypo } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const upArrow = <Entypo name="chevron-thin-up" size={30} color="black" />;
 const downArrow = <Entypo name="chevron-thin-down" size={30} color="black" />;
@@ -65,8 +66,20 @@ export default class Stats_View extends React.Component {
 
     const visibleStatsPage = (
       <View style={styles.visibleContainer}>
+        <LinearGradient
+          colors={["rgba(189, 195, 199, 1)", "rgba(189, 195, 199, 0.5)"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "100%",
+            borderRadius: 20,
+          }}
+        />
         <View style={styles.innerContainer}>
           <View style={styles.teamFlexContainer}>
+            {/* Team 1 */}
             <View style={styles.teamBox}>
               <View style={styles.teamHeader}>
                 <Image
@@ -89,6 +102,7 @@ export default class Stats_View extends React.Component {
 
             <View style={styles.divider} />
 
+            {/* Team 2 */}
             <View style={styles.teamBox}>
               <View style={styles.teamHeader}>
                 <Image
@@ -115,6 +129,19 @@ export default class Stats_View extends React.Component {
 
     const partialStatsPage = (
       <View style={styles.partialContainer}>
+        <LinearGradient
+          colors={["rgba(189, 195, 199, 1)", "rgba(189, 195, 199, 0.5)"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "172%",
+            borderRadius: 20,
+          }}
+        />
+
+        {/* Team 1 */}
         <View style={styles.partialTeamBox}>
           <View>
             <Text style={styles.partialTitle}>{team1Name}</Text>
@@ -129,6 +156,7 @@ export default class Stats_View extends React.Component {
 
         <View style={styles.divider} />
 
+        {/* Team 2 */}
         <View style={styles.partialTeamBox}>
           <View>
             <Text style={styles.partialTitle}>{team2Name}</Text>
@@ -167,13 +195,12 @@ const styles = StyleSheet.create({
   // Partial Container Styles
   // ====================
   partialContainer: {
-    backgroundColor: "aliceblue",
     justifyContent: "center",
     flexDirection: "row",
     top: 10,
     borderWidth: 2,
     borderRadius: 20,
-    height: 54,
+    height: "22%",
     margin: 6,
     padding: 10,
   },
@@ -221,13 +248,12 @@ const styles = StyleSheet.create({
   // Main Container
   // ====================
   visibleContainer: {
-    backgroundColor: "aliceblue",
     alignItems: "center",
     justifyContent: "flex-start",
     top: 10,
     borderWidth: 2,
     borderRadius: 20,
-    height: 245,
+    height: "51.5%",
     margin: 6,
   },
   // ====================
@@ -275,8 +301,8 @@ const styles = StyleSheet.create({
     paddingRight: 4,
   },
   divider: {
-    borderLeftWidth: 3,
-    borderLeftColor: "black",
+    borderLeftWidth: 1.5,
+    borderLeftColor: "rgba(0, 0, 0, 0.5)",
   },
   // ====================
   // Arrow Styles
