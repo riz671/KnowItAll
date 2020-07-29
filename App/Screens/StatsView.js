@@ -176,13 +176,24 @@ export default class Stats_View extends React.Component {
       : partialStatsPage;
 
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.mainContainer}>
         {correctContainer}
         <TouchableOpacity
           style={styles.arrow}
-          activeOpacity={0.3}
+          focusedOpacity={0.5}
           onPress={this.toggleClick}
         >
+          <LinearGradient
+            colors={["rgba(242, 241, 239, 1)", "rrgba(242, 241, 239, 0.5)"]}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 0,
+              height: "100%",
+              borderRadius: 20,
+            }}
+          />
           <Text>{arrow}</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -191,18 +202,22 @@ export default class Stats_View extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    display: "flex",
+    alignItems: "center",
+    top: "6.3%",
+  },
   // ====================
   // Partial Container Styles
   // ====================
   partialContainer: {
     justifyContent: "center",
     flexDirection: "row",
-    top: 10,
     borderWidth: 2,
     borderRadius: 20,
     height: "22%",
-    margin: 6,
     padding: 10,
+    width: "97%",
   },
   partialTeamBox: {
     alignItems: "center",
@@ -219,7 +234,6 @@ const styles = StyleSheet.create({
     width: 10,
     borderRadius: 10 / 2,
     borderWidth: 0.25,
-    lineHeight: 30,
     marginRight: 6,
     marginLeft: 3,
   },
@@ -249,12 +263,10 @@ const styles = StyleSheet.create({
   // ====================
   visibleContainer: {
     alignItems: "center",
-    justifyContent: "flex-start",
-    top: 10,
     borderWidth: 2,
     borderRadius: 20,
     height: "51.5%",
-    margin: 6,
+    width: "97%",
   },
   // ====================
   // Inner Container
@@ -308,10 +320,12 @@ const styles = StyleSheet.create({
   // Arrow Styles
   // ====================
   arrow: {
-    top: 3,
+    top: -1,
     display: "flex",
     alignItems: "center",
     borderWidth: 0.5,
     borderRadius: 15,
+    justifyContent: "center",
+    width: "97%",
   },
 });
