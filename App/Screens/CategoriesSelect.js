@@ -40,49 +40,13 @@ export default class CategoriesSelect extends React.Component {
 
       <Text style={{fontSize: 35}}>Select A Category!</Text>
       <View style={styles.categories}>
-        {/* {props.categories.map((cat) => {
+        {props.categories.map((cat) => {
           return (
             <TouchableHighlight style={styles.button} onPress={() => {this.setModalVisible(true, cat.title)}}>
               <Text style={{fontSize: 20}}>{cat.title}</Text>
             </TouchableHighlight>
           )
-        })} */}
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category1')}}>
-            <Text style={{fontSize: 20}}>Category1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category2')}}>
-            <Text style={{fontSize: 20}}>Category2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category3')}}>
-            <Text style={{fontSize: 20}}>Category3</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category4')}}>
-            <Text style={{fontSize: 20}}>Category4</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category5')}}>
-            <Text style={{fontSize: 20}}>Category5</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category6')}}>
-            <Text style={{fontSize: 20}}>Category6</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category7')}}>
-            <Text style={{fontSize: 20}}>Category7</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category8')}}>
-            <Text style={{fontSize: 20}}>Category8</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category9')}}>
-            <Text style={{fontSize: 20}}>Category9</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category10')}}>
-            <Text style={{fontSize: 20}}>Category10</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category11')}}>
-            <Text style={{fontSize: 20}}>Category11</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {this.setModalVisible(true, 'category12')}}>
-            <Text style={{fontSize: 20}}>Category12</Text>
-          </TouchableOpacity>
+        })}
       </View>
     </SafeAreaView>
     )
