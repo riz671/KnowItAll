@@ -27,6 +27,9 @@ export default class Stats_View extends React.Component {
       team1Wins: 1,
       team1Losses: 3,
       team1Draws: 2,
+      team1Turn: true,
+      icon1: undefined,
+      icon2: undefined,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -45,11 +48,22 @@ export default class Stats_View extends React.Component {
       team1Wins,
       team1Losses,
       team1Draws,
+      team1Turn,
+      icon1,
+      icon2,
     } = this.state;
 
     const arrow = this.state.isClicked ? upArrow : downArrow;
 
-    const results = (
+    if (team1Turn) {
+      icon1 = [styles.iconTemplate, styles.activeIcon];
+      icon2 = [styles.iconTemplate, styles.inactiveIcon];
+    } else {
+      icon1 = [styles.iconTemplate, styles.inactiveIcon];
+      icon2 = [styles.iconTemplate, styles.activeIcon];
+    }
+
+    const visibleStatsPage = (
       <View style={styles.visibleContainer}>
         <View style={styles.innerContainer}>
           <View style={styles.teamFlexContainer}>
@@ -96,17 +110,14 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const secondPage = (
+    const partialStatsPage = (
       <View style={styles.partialContainer}>
         <View style={styles.partialTeamBox}>
-          <Image
-            style={styles.partialLogo}
-            source={require("./StatsViewComp/mercedes.png")}
-          ></Image>
-
           <View>
             <Text style={styles.partialTitle}>{team1Name}</Text>
           </View>
+
+          <Image style={icon1}></Image>
 
           <View>
             <Text style={styles.partialScore}> {team1Score}</Text>
@@ -116,14 +127,11 @@ export default class Stats_View extends React.Component {
         <View style={styles.divider} />
 
         <View style={styles.partialTeamBox}>
-          <Image
-            style={styles.partialLogo}
-            source={require("./StatsViewComp/mercedes.png")}
-          ></Image>
-
           <View>
             <Text style={styles.partialTitle}>{team2Name}</Text>
           </View>
+
+          <Image style={icon2}></Image>
 
           <View>
             <Text style={styles.partialScore}> {team2Score}</Text>
@@ -132,7 +140,9 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const correctContainer = this.state.isClicked ? results : secondPage;
+    const correctContainer = this.state.isClicked
+      ? visibleStatsPage
+      : partialStatsPage;
 
     return (
       <SafeAreaView>
@@ -165,20 +175,33 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   partialTeamBox: {
+    alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
     paddingHorizontal: 10,
     flex: 1,
   },
   // ====================
+  // Icon Style
+  // ====================
+  iconTemplate: {
+    height: 10,
+    width: 10,
+    borderRadius: 10 / 2,
+    borderWidth: 0.5,
+    lineHeight: 30,
+    marginRight: 6,
+    marginLeft: 3,
+  },
+  activeIcon: {
+    backgroundColor: "green",
+  },
+  inactiveIcon: {
+    backgroundColor: "red",
+  },
+  // ====================
   // Partial Stats Detail Style
   // ====================
-  partialLogo: {
-    height: 30,
-    width: 30,
-    borderRadius: 30 / 2,
-    borderWidth: 0.5,
-  },
   partialTitle: {
     flex: 3,
     paddingHorizontal: 3,
