@@ -6,16 +6,18 @@ export default class CategoriesSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      modalVisible: true,
+      modalVisible: false,
       currentCat: '',
+      endpoint: '',
     }
     this.setModalVisible = this.setModalVisible.bind(this)
   }
 
-  setModalVisible = (visible, e) => {
+  setModalVisible = (visible, category, endpoint) => {
     this.setState({
       modalVisible: visible,
-      currentCat: e,
+      currentCat: category,
+      endpoint: endpoint
     });
   }
 
@@ -26,23 +28,23 @@ export default class CategoriesSelect extends React.Component {
         <Modal visible={this.state.modalVisible}>
           <View style={styles.modal}>
             <Text style={styles.modalTitle}>{this.state.currentCat}</Text>
-            <Text style={styles.modalDescription}>this.props.categories.currentCat.description How about now Super long description that doesnt mean anything does it look ok? Or does it need to be fixed</Text>
+            <Text style={styles.modalDescription}>Select {this.state.currentCat}?</Text>
             <View style={styles.modalButtons}>
               <TouchableHighlight  onPress={() => {this.setModalVisible(false)}}>
                 <Text style={styles.modalText}>Back</Text>
               </TouchableHighlight>
-              <TouchableHighlight  onPress={() => {console.log(`Pass to the Game View ${this.state.currentCat}`)}}>
+              <TouchableHighlight  onPress={() => this.props.history.push(`/${this.state.endpoint}`)}>
                 <Text style={styles.modalText}>Play</Text>
               </TouchableHighlight>
             </View>
           </View>
         </Modal>
 
-      <Text style={{fontSize: 35}}>Select A Category!</Text>
+      <Text style={{fontSize: 35}}>Select a category!</Text>
       <View style={styles.categories}>
-        {props.categories.map((cat) => {
+        {this.props.categories.map((cat, i) => {
           return (
-            <TouchableHighlight style={styles.button} onPress={() => {this.setModalVisible(true, cat.title)}}>
+            <TouchableHighlight key={i} style={styles.button} onPress={() => {this.setModalVisible(true, cat.title, cat.endpoint)}}>
               <Text style={{fontSize: 20}}>{cat.title}</Text>
             </TouchableHighlight>
           )
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
   modalDescription: {
     fontSize: 20,
     width: '90%',
+    textAlign: 'center'
   },
   modalButtons: {
     flexDirection: 'row',
