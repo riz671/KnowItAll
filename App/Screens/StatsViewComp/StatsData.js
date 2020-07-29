@@ -28,15 +28,16 @@ export default class Stats_Data extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      score: 0,
-      wins: 0,
-      losses: 0,
+      score: this.props.score,
+      wins: this.props.wins,
+      losses: this.props.losses,
+      draws: this.props.draws,
       name: fakePlayers,
     };
   }
 
   render() {
-    const { score, wins, losses, name } = this.state;
+    const { score, wins, losses, draws, name } = this.state;
     const renderItem = ({ item }) => (
       <Text style={styles.playerName}>{item.name}</Text>
     );
@@ -53,6 +54,9 @@ export default class Stats_Data extends React.Component {
           <Text style={styles.title}>
             Losses: <Text style={styles.scorePoints}>{losses}</Text>
           </Text>
+          <Text style={styles.title}>
+            Draws: <Text style={styles.scorePoints}>{draws}</Text>
+          </Text>
         </View>
 
         <View style={styles.dataBox}>
@@ -64,13 +68,6 @@ export default class Stats_Data extends React.Component {
             )}
           />
         </View>
-
-        <View style={styles.dataBox}>
-          <Image
-            style={styles.teamLogo}
-            source={require("./mercedes.png")}
-          ></Image>
-        </View>
       </View>
     );
   }
@@ -81,18 +78,19 @@ const styles = StyleSheet.create({
     width: 130,
     margin: 10,
     alignItems: "center",
+    flex: 1,
   },
   dataBox: {
     marginBottom: 5,
-    height: 70,
+    height: 95,
   },
   // ====================
   // Team Logo Styles
   // ====================
   teamLogo: {
-    width: 50,
-    height: 50,
-    borderRadius: 50 / 2,
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
     borderWidth: 1,
   },
   // ====================

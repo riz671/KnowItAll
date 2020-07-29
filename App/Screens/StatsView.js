@@ -20,7 +20,11 @@ export default class Stats_View extends React.Component {
     super(props);
     this.state = {
       isClicked: true,
-      score: 0,
+      team1Score: 1000,
+      team2Score: 500,
+      team1Wins: 1,
+      team1Losses: 3,
+      team1Draws: 2,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -30,6 +34,15 @@ export default class Stats_View extends React.Component {
   }
 
   render() {
+    let {
+      isClicked,
+      team1Score,
+      team2Score,
+      team1Wins,
+      team1Losses,
+      team1Draws,
+    } = this.state;
+
     const arrow = this.state.isClicked ? upArrow : downArrow;
 
     const results = (
@@ -37,17 +50,40 @@ export default class Stats_View extends React.Component {
         <View style={styles.innerContainer}>
           <View style={styles.teamFlexContainer}>
             <View style={styles.teamBox}>
-              <Text style={styles.teamTitle}>Team 1</Text>
+              <View style={styles.teamHeader}>
+                <Image
+                  style={styles.teamLogo}
+                  source={require("./StatsViewComp/mercedes.png")}
+                ></Image>
 
-              <StatsData />
+                <Text style={styles.teamTitle}>Team 1</Text>
+              </View>
+              <StatsData
+                score={team1Score}
+                wins={team1Wins}
+                losses={team1Losses}
+                draws={team1Draws}
+              />
             </View>
 
             <View style={styles.divider} />
 
             <View style={styles.teamBox}>
-              <Text style={styles.teamTitle}>Team 2</Text>
+              <View style={styles.teamHeader}>
+                <Image
+                  style={styles.teamLogo}
+                  source={require("./StatsViewComp/mercedes.png")}
+                ></Image>
 
-              <StatsData />
+                <Text style={styles.teamTitle}>Team 2</Text>
+              </View>
+
+              <StatsData
+                score={team2Score}
+                wins={team1Losses}
+                losses={team1Wins}
+                draws={team1Draws}
+              />
             </View>
           </View>
         </View>
@@ -67,7 +103,7 @@ export default class Stats_View extends React.Component {
           </View>
 
           <View>
-            <Text style={styles.partialScore}> {this.state.score}</Text>
+            <Text style={styles.partialScore}> {team1Score}</Text>
           </View>
         </View>
 
@@ -84,7 +120,7 @@ export default class Stats_View extends React.Component {
           </View>
 
           <View>
-            <Text style={styles.partialScore}> {this.state.score}</Text>
+            <Text style={styles.partialScore}> {team2Score}</Text>
           </View>
         </View>
       </View>
@@ -135,11 +171,11 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     borderRadius: 30 / 2,
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   partialTitle: {
     flex: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 3,
     lineHeight: 30,
     fontSize: 20,
   },
@@ -147,8 +183,7 @@ const styles = StyleSheet.create({
     flex: 3,
     lineHeight: 30,
     fontWeight: "bold",
-    fontSize: 24,
-    paddingLeft: 10,
+    fontSize: 20,
   },
   // ====================
   // Main Container
@@ -160,7 +195,7 @@ const styles = StyleSheet.create({
     top: 10,
     borderWidth: 2,
     borderRadius: 20,
-    height: 270,
+    height: 245,
     margin: 6,
   },
   // ====================
@@ -170,26 +205,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   // ====================
-  // Title Container
-  // ====================
-
-  titleContainer: {
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "600",
-    textDecorationLine: "underline",
-    marginBottom: 5,
-  },
-  // ====================
-  // Team Styles
+  // Team Container Styles
   // ====================
   teamFlexContainer: {
     display: "flex",
     flexDirection: "row",
     borderRadius: 20,
-    height: 250,
+    height: 225,
   },
   teamBox: {
     margin: 5,
@@ -197,10 +219,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
   },
+  // ====================
+  // Team Header Styles
+  // ====================
+  teamHeader: {
+    display: "flex",
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    padding: 6,
+  },
+  teamLogo: {
+    width: 30,
+    height: 30,
+    borderRadius: 30 / 2,
+    borderWidth: 0.5,
+  },
   teamTitle: {
-    fontSize: 16,
-    textDecorationLine: "underline",
+    lineHeight: 30,
+    fontSize: 20,
     marginBottom: -4,
+    paddingLeft: 8,
   },
   divider: {
     borderLeftWidth: 3,
@@ -213,7 +251,7 @@ const styles = StyleSheet.create({
     top: 3,
     display: "flex",
     alignItems: "center",
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderRadius: 15,
   },
 });
