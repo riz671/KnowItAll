@@ -15,8 +15,11 @@ import { LinearGradient } from "expo-linear-gradient";
 export default class Stats_View extends React.Component {
   constructor(props) {
     super(props);
+    // change state's key values to props
+    // once it's known what is passed
+    // to this module
     this.state = {
-      isClicked: true,
+      isClicked: false,
       team1Name: "Team 3",
       team2Name: "Team 6",
       team1Score: 1000,
@@ -32,9 +35,7 @@ export default class Stats_View extends React.Component {
   }
 
   toggleClick() {
-    this.setState({ isClicked: !this.state.isClicked }, () =>
-      console.log(this.state)
-    );
+    this.setState({ isClicked: !this.state.isClicked });
   }
 
   render() {
@@ -52,6 +53,7 @@ export default class Stats_View extends React.Component {
       icon2,
     } = this.state;
 
+    // handles icon colors
     if (team1Turn) {
       icon1 = [styles.iconTemplate, styles.activeIcon];
       icon2 = [styles.iconTemplate, styles.inactiveIcon];
@@ -60,10 +62,11 @@ export default class Stats_View extends React.Component {
       icon2 = [styles.iconTemplate, styles.activeIcon];
     }
 
-    const visibleStatsPage = (
+    // stores structure for detailed stats page
+    const detailedStats = (
       <View style={styles.visibleContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["rgba(189, 195, 199, 1)", "rgba(189, 195, 199, 0.5)"]}
+          colors={["#78a8df", "#d5d5d5"]}
           style={{
             position: "absolute",
             left: 0,
@@ -123,16 +126,16 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const partialStatsPage = (
+    const partialStats = (
       <View style={styles.partialContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["rgba(189, 195, 199, 1)", "rgba(189, 195, 199, 0.5)"]}
+          colors={["#78a8df", "#d5d5d5"]}
           style={{
             position: "absolute",
             left: 0,
             right: 0,
             top: 0,
-            height: "172%",
+            height: "170%",
             borderRadius: 20,
           }}
         />
@@ -167,8 +170,8 @@ export default class Stats_View extends React.Component {
     );
 
     const correctContainer = this.state.isClicked
-      ? visibleStatsPage
-      : partialStatsPage;
+      ? detailedStats
+      : partialStats;
 
     return (
       <SafeAreaView style={styles.mainContainer}>
@@ -192,9 +195,8 @@ const styles = StyleSheet.create({
   partialContainer: {
     justifyContent: "center",
     flexDirection: "row",
-    borderWidth: 2,
     borderRadius: 20,
-    height: "40%",
+    height: "38.5%",
     padding: 10,
     width: "97%",
   },
@@ -242,7 +244,6 @@ const styles = StyleSheet.create({
   // ====================
   visibleContainer: {
     alignItems: "center",
-    borderWidth: 2,
     borderRadius: 20,
     height: "65.3%",
     width: "100%",
@@ -264,6 +265,7 @@ const styles = StyleSheet.create({
   },
   teamBox: {
     margin: 5,
+    marginHorizontal: 14,
     width: 160,
     alignItems: "center",
     borderRadius: 20,
@@ -294,17 +296,5 @@ const styles = StyleSheet.create({
   divider: {
     borderLeftWidth: 1.5,
     borderLeftColor: "rgba(0, 0, 0, 0.5)",
-  },
-  // ====================
-  // Arrow Styles
-  // ====================
-  arrow: {
-    top: -1,
-    display: "flex",
-    alignItems: "center",
-    borderWidth: 0.5,
-    borderRadius: 15,
-    justifyContent: "center",
-    width: "97%",
   },
 });
