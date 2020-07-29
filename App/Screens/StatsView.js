@@ -75,7 +75,9 @@ export default class Stats_View extends React.Component {
                 ></Image>
 
                 <Text style={styles.teamTitle}>{team1Name}</Text>
+                <Image style={icon1}></Image>
               </View>
+
               <StatsData
                 teamName={team1Name}
                 score={team1Score}
@@ -95,6 +97,7 @@ export default class Stats_View extends React.Component {
                 ></Image>
 
                 <Text style={styles.teamTitle}>{team2Name}</Text>
+                <Image style={icon2}></Image>
               </View>
 
               <StatsData
@@ -188,16 +191,16 @@ const styles = StyleSheet.create({
     height: 10,
     width: 10,
     borderRadius: 10 / 2,
-    borderWidth: 0.5,
+    borderWidth: 0.25,
     lineHeight: 30,
     marginRight: 6,
     marginLeft: 3,
   },
   activeIcon: {
-    backgroundColor: "green",
+    backgroundColor: "#00FA9A",
   },
   inactiveIcon: {
-    backgroundColor: "red",
+    backgroundColor: "#DC143C",
   },
   // ====================
   // Partial Stats Detail Style
@@ -254,6 +257,7 @@ const styles = StyleSheet.create({
   teamHeader: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
     borderBottomWidth: 0.5,
     padding: 6,
   },
@@ -264,10 +268,11 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   teamTitle: {
-    lineHeight: 30,
+    lineHeight: 20,
     fontSize: 20,
     marginBottom: -4,
     paddingLeft: 8,
+    paddingRight: 4,
   },
   divider: {
     borderLeftWidth: 3,
