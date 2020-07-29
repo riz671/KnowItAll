@@ -20,11 +20,16 @@ export default class Stats_View extends React.Component {
     super(props);
     this.state = {
       isClicked: true,
+      team1Name: "Team 3",
+      team2Name: "Team 6",
       team1Score: 1000,
       team2Score: 500,
       team1Wins: 1,
       team1Losses: 3,
       team1Draws: 2,
+      team1Turn: true,
+      icon1: undefined,
+      icon2: undefined,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -36,16 +41,29 @@ export default class Stats_View extends React.Component {
   render() {
     let {
       isClicked,
+      team1Name,
+      team2Name,
       team1Score,
       team2Score,
       team1Wins,
       team1Losses,
       team1Draws,
+      team1Turn,
+      icon1,
+      icon2,
     } = this.state;
 
     const arrow = this.state.isClicked ? upArrow : downArrow;
 
-    const results = (
+    if (team1Turn) {
+      icon1 = [styles.iconTemplate, styles.activeIcon];
+      icon2 = [styles.iconTemplate, styles.inactiveIcon];
+    } else {
+      icon1 = [styles.iconTemplate, styles.inactiveIcon];
+      icon2 = [styles.iconTemplate, styles.activeIcon];
+    }
+
+    const visibleStatsPage = (
       <View style={styles.visibleContainer}>
         <View style={styles.innerContainer}>
           <View style={styles.teamFlexContainer}>
@@ -56,9 +74,12 @@ export default class Stats_View extends React.Component {
                   source={require("./StatsViewComp/mercedes.png")}
                 ></Image>
 
-                <Text style={styles.teamTitle}>Team 1</Text>
+                <Text style={styles.teamTitle}>{team1Name}</Text>
+                <Image style={icon1}></Image>
               </View>
+
               <StatsData
+                teamName={team1Name}
                 score={team1Score}
                 wins={team1Wins}
                 losses={team1Losses}
@@ -75,10 +96,12 @@ export default class Stats_View extends React.Component {
                   source={require("./StatsViewComp/mercedes.png")}
                 ></Image>
 
-                <Text style={styles.teamTitle}>Team 2</Text>
+                <Text style={styles.teamTitle}>{team2Name}</Text>
+                <Image style={icon2}></Image>
               </View>
 
               <StatsData
+                teamName={team2Name}
                 score={team2Score}
                 wins={team1Losses}
                 losses={team1Wins}
@@ -90,17 +113,14 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const secondPage = (
+    const partialStatsPage = (
       <View style={styles.partialContainer}>
         <View style={styles.partialTeamBox}>
-          <Image
-            style={styles.partialLogo}
-            source={require("./StatsViewComp/mercedes.png")}
-          ></Image>
-
           <View>
-            <Text style={styles.partialTitle}> Team 1</Text>
+            <Text style={styles.partialTitle}>{team1Name}</Text>
           </View>
+
+          <Image style={icon1}></Image>
 
           <View>
             <Text style={styles.partialScore}> {team1Score}</Text>
@@ -110,14 +130,11 @@ export default class Stats_View extends React.Component {
         <View style={styles.divider} />
 
         <View style={styles.partialTeamBox}>
-          <Image
-            style={styles.partialLogo}
-            source={require("./StatsViewComp/mercedes.png")}
-          ></Image>
-
           <View>
-            <Text style={styles.partialTitle}> Team 2</Text>
+            <Text style={styles.partialTitle}>{team2Name}</Text>
           </View>
+
+          <Image style={icon2}></Image>
 
           <View>
             <Text style={styles.partialScore}> {team2Score}</Text>
@@ -126,7 +143,9 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const correctContainer = this.state.isClicked ? results : secondPage;
+    const correctContainer = this.state.isClicked
+      ? visibleStatsPage
+      : partialStatsPage;
 
     return (
       <SafeAreaView>
@@ -159,20 +178,33 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   partialTeamBox: {
+    alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
     paddingHorizontal: 10,
     flex: 1,
   },
   // ====================
+  // Icon Style
+  // ====================
+  iconTemplate: {
+    height: 10,
+    width: 10,
+    borderRadius: 10 / 2,
+    borderWidth: 0.25,
+    lineHeight: 30,
+    marginRight: 6,
+    marginLeft: 3,
+  },
+  activeIcon: {
+    backgroundColor: "#00FA9A",
+  },
+  inactiveIcon: {
+    backgroundColor: "#DC143C",
+  },
+  // ====================
   // Partial Stats Detail Style
   // ====================
-  partialLogo: {
-    height: 30,
-    width: 30,
-    borderRadius: 30 / 2,
-    borderWidth: 0.5,
-  },
   partialTitle: {
     flex: 3,
     paddingHorizontal: 3,
@@ -225,6 +257,7 @@ const styles = StyleSheet.create({
   teamHeader: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
     borderBottomWidth: 0.5,
     padding: 6,
   },
@@ -235,10 +268,11 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   teamTitle: {
-    lineHeight: 30,
+    lineHeight: 20,
     fontSize: 20,
     marginBottom: -4,
     paddingLeft: 8,
+    paddingRight: 4,
   },
   divider: {
     borderLeftWidth: 3,
