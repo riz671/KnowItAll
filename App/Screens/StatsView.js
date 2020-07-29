@@ -10,11 +10,7 @@ import {
   Button,
 } from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
-import { Entypo } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-
-const upArrow = <Entypo name="chevron-thin-up" size={30} color="black" />;
-const downArrow = <Entypo name="chevron-thin-down" size={30} color="black" />;
 
 export default class Stats_View extends React.Component {
   constructor(props) {
@@ -36,7 +32,9 @@ export default class Stats_View extends React.Component {
   }
 
   toggleClick() {
-    this.setState({ isClicked: !this.state.isClicked });
+    this.setState({ isClicked: !this.state.isClicked }, () =>
+      console.log(this.state)
+    );
   }
 
   render() {
@@ -54,8 +52,6 @@ export default class Stats_View extends React.Component {
       icon2,
     } = this.state;
 
-    const arrow = this.state.isClicked ? upArrow : downArrow;
-
     if (team1Turn) {
       icon1 = [styles.iconTemplate, styles.activeIcon];
       icon2 = [styles.iconTemplate, styles.inactiveIcon];
@@ -65,7 +61,7 @@ export default class Stats_View extends React.Component {
     }
 
     const visibleStatsPage = (
-      <View style={styles.visibleContainer}>
+      <View style={styles.visibleContainer} onPress={this.toggleClick}>
         <LinearGradient
           colors={["rgba(189, 195, 199, 1)", "rgba(189, 195, 199, 0.5)"]}
           style={{
@@ -128,7 +124,7 @@ export default class Stats_View extends React.Component {
     );
 
     const partialStatsPage = (
-      <View style={styles.partialContainer}>
+      <View style={styles.partialContainer} onPress={this.toggleClick}>
         <LinearGradient
           colors={["rgba(189, 195, 199, 1)", "rgba(189, 195, 199, 0.5)"]}
           style={{
@@ -140,7 +136,6 @@ export default class Stats_View extends React.Component {
             borderRadius: 20,
           }}
         />
-
         {/* Team 1 */}
         <View style={styles.partialTeamBox}>
           <View>
@@ -150,7 +145,7 @@ export default class Stats_View extends React.Component {
           <Image style={icon1}></Image>
 
           <View>
-            <Text style={styles.partialScore}> {team1Score}</Text>
+            <Text style={styles.partialScore}> {team1Wins} WON</Text>
           </View>
         </View>
 
@@ -165,7 +160,7 @@ export default class Stats_View extends React.Component {
           <Image style={icon2}></Image>
 
           <View>
-            <Text style={styles.partialScore}> {team2Score}</Text>
+            <Text style={styles.partialScore}> {team1Losses} WON</Text>
           </View>
         </View>
       </View>
@@ -177,24 +172,8 @@ export default class Stats_View extends React.Component {
 
     return (
       <SafeAreaView style={styles.mainContainer}>
-        {correctContainer}
-        <TouchableOpacity
-          style={styles.arrow}
-          focusedOpacity={0.5}
-          onPress={this.toggleClick}
-        >
-          <LinearGradient
-            colors={["rgba(242, 241, 239, 1)", "rrgba(242, 241, 239, 0.5)"]}
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: 0,
-              height: "100%",
-              borderRadius: 20,
-            }}
-          />
-          <Text>{arrow}</Text>
+        <TouchableOpacity focusedOpacity={0.9} onPress={this.toggleClick}>
+          {correctContainer}
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -215,7 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: 2,
     borderRadius: 20,
-    height: "22%",
+    height: "40%",
     padding: 10,
     width: "97%",
   },
@@ -265,8 +244,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 20,
-    height: "51.5%",
-    width: "97%",
+    height: "65.3%",
+    width: "100%",
   },
   // ====================
   // Inner Container
