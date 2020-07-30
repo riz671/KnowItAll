@@ -13,7 +13,7 @@ const Homepage = ({ history }) => {
       </View>
       <TouchableHighlight 
         style={styles.playNowButton} 
-        onPress={() => history.push('/select-category')}
+        onPress={() => history.push('/team-select')}
         activeOpacity={0.5}
         underlayColor='#0065d1'
       >
