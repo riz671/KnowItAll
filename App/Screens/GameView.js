@@ -11,13 +11,23 @@ class GameView extends React.Component {
       realQ: "",
       answer: "",
       team1Points: 0,
-      team2Points: 0
+      team2Points: 0,
+      countDown: 3,
+      roundCount: 8,
+      countPage: true,
+      gamePage: false,
+      roundFinish: false
     }
     this.getInfo = this.getInfo.bind(this);
+    this.changePoints = this.changePoints.bind(this);
+    this.count = this.count.bind(this);
+    this.roundCounter = this.roundCounter.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidMount() {
     this.getInfo();
+    this.count();
   }
 
   getInfo() {
@@ -31,7 +41,8 @@ class GameView extends React.Component {
     .then(() => {
       let string = this.state.question;
 
-      string = string.replace(/&#039;/g, "'")
+      string = string.replace(/&#039;/g, "'");
+      string = string.replace(/&rsquo;/g, "'");
 
       this.setState ({
         realQ: string
@@ -39,47 +50,145 @@ class GameView extends React.Component {
     })
   }
 
+  changePoints(e, name) {
+    if(name === 'team1Points') {
+      this.setState ({
+        team1Points: this.state.team1Points + 1
+      })
+    }
+
+    if(name === 'team2Points') {
+      this.setState ({
+        team2Points: this.state.team2Points + 1
+      })
+    }
+    console.log(this.state.team1Points);
+  }
+
+  count() {
+    var count = 0;
+    const myFunction = () => {
+      count++;
+      if(count > 3) clearInterval(timeout);
+      this.setState({
+        countDown: this.state.countDown - 1
+      })
+
+      if(this.state.countDown === 0) {
+        this.setState({
+          countPage: false,
+          gamePage: true,
+          countDown: 3,
+        })
+      }
+    }
+    var timeout = setInterval(myFunction, 1050);
+
+    this.roundCounter();
+  }
+
+  roundCounter() {
+    var count = 0;
+    const myFunction = () => {
+      count++;
+      if(count > 10000) clearInterval(timeout);
+      this.setState({
+        roundCount: this.state.roundCount - 1
+      })
+
+      if(this.state.roundCount === 0) {
+        this.setState({
+          countPage: false,
+          gamePage: false,
+          roundFinish: true
+        })
+      }
+    }
+    var timeout = setInterval(myFunction, 950);
+  }
+
+  nextQuestion() {
+    this.setState ({
+      countPage: false,
+      gamePage: true,
+      roundFinish: false,
+      roundCount: 30
+    })
+  }
+
 
   render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.categoryContainer}>
-          <Text style={styles.h1}>{this.props.category}</Text>
-        </View>
-        <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>{this.state.realQ}</Text>
-        </View>
-        <View style={styles.scoreContainer}>
-          <View style={styles.teamContainer}>
-            <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
-            <Text style={styles.teamFont}>{this.state.team1Points}</Text>
+    if (this.state.countPage === true) {
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.h1}>{this.props.category}</Text>
           </View>
-          <View style={styles.teamContainer}>
-            <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
-            <Text style={styles.teamFont}>{this.state.team2Points}</Text>
+          <View style={styles.questionContainer}>
+            <Text style={styles.countText}>{this.state.countDown}</Text>
           </View>
-        </View>
-      </SafeAreaView>
-      // <View style={styles.container}>
-      //   <View style={card.container}>
-      //     <Text style={category}>{this.props.category}</Text>
-      //     <View style={question.container}>
-      //       <TouchableOpacity style={start.container}>
-      //         <Text>START</Text>
-      //       </TouchableOpacity>
-      //       <Text style={ask.container}>{this.state.realQ}</Text>
-      //     </View>
-      //     <View style={teams.container}>
-      //       <Text style={team1.container}>{this.props.team1}</Text>
-      //       <Text style={team2.container}>{this.props.team2}</Text>
-      //     </View>
-      //     <View style={points.container}>
-      //       <Text style={point1.container}>{this.state.team1Points}</Text>
-      //       <Text style={point2.container}>{this.state.team2Points}</Text>
-      //     </View>
-      //   </View>
-      // </View>
-    );
+          <View style={styles.scoreContainer}>
+            <View style={styles.teamContainer}>
+              <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
+              <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team1Points')}>{this.state.team1Points}</Text>
+            </View>
+            <View style={styles.teamContainer}>
+              <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
+              <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team2Points')}>{this.state.team2Points}</Text>
+            </View>
+          </View>
+        </SafeAreaView>
+      );
+    }
+
+    if (this.state.gamePage === true) {
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.h1}>{this.props.category}</Text>
+          </View>
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionText}>{this.state.realQ}</Text>
+            <Text style={styles.countText2} onActive={this.roundCounter}>{this.state.roundCount}</Text>
+          </View>
+          <View style={styles.scoreContainer}>
+            <View style={styles.teamContainer}>
+              <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
+              <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team1Points')}>{this.state.team1Points}</Text>
+            </View>
+            <View style={styles.teamContainer}>
+              <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
+              <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team2Points')}>{this.state.team2Points}</Text>
+            </View>
+          </View>
+        </SafeAreaView>
+      );
+    }
+
+    if (this.state.roundFinish === true) {
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.h1}>{this.props.category}</Text>
+          </View>
+          <View style={styles.questionContainer}>
+            <Text style={styles.answer}>Answer: </Text>
+            <Text style={styles.questionText2}>{this.state.answer}</Text>
+            <Text style={styles.nextQ} onPress={this.nextQuestion}>Next Question</Text>
+          </View>
+          <View style={styles.scoreContainer}>
+            <View style={styles.teamContainer}>
+              <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
+              <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team1Points')}>{this.state.team1Points}</Text>
+            </View>
+            <View style={styles.teamContainer}>
+              <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
+              <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team2Points')}>{this.state.team2Points}</Text>
+            </View>
+          </View>
+        </SafeAreaView>
+      );
+    }
   }
 }
 
@@ -94,7 +203,7 @@ const styles = StyleSheet.create({
   categoryContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, .3)',
     borderRadius: 30,
     height: 60,
     marginBottom: 50,
@@ -102,9 +211,10 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 35,
+    color: "#383e4e",
   },
   questionContainer: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, .3)',
     borderRadius: 20,
     height: 350,
     width: 350,
@@ -112,8 +222,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   questionText: {
-    fontSize: 20,
+    fontSize: 30,
     padding: 5,
+    color: "#383e4e",
+    marginLeft: 15,
+  },
+  questionText2: {
+    marginTop: 30,
+    fontSize: 30,
+    padding: 5,
+    color: "#383e4e",
+  },
+  answer: {
+    fontSize: 30,
+    padding: 5,
+    color: "#383e4e"
+  },
+  nextQ: {
+    marginTop: 50,
+    fontSize: 25,
+    padding: 5,
+    color: "#383e4e",
+    borderWidth: 3,
+    borderRadius: 15,
+    borderColor: "#383e4e"
+  },
+  countText: {
+    fontSize: 100,
+    padding: 5,
+    color: "#383e4e",
+  },
+  countText2: {
+    marginTop: 50,
+    fontSize: 50,
+    padding: 5,
+    color: "#383e4e",
   },
   scoreContainer: {
     flexDirection: 'row',
@@ -132,135 +275,14 @@ const styles = StyleSheet.create({
   },
   teamFont: {
     fontSize: 25,
+    color: 'rgba(255, 255, 255, .3)',
   },
   red: {
     color: 'red',
   },
   blue: {
-    color: 'blue',
+    color: 'rgb(121, 190, 219)',
   },
 })
-
-// const start = StyleSheet.create ({
-//   container: {
-//     alignItems: "center",
-//     backgroundColor: "#DDDDDD",
-//     padding: 10,
-//     borderRadius: 15,
-//     width: 150,
-//     left: 97,
-//     top: 50,
-//   },
-// })
-
-// const points = StyleSheet.create ({
-//   container: {
-//     flex: 1,
-//     flexDirection: "row",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 50,
-//   },
-// })
-
-// const point1 = StyleSheet.create ({
-//   container: {
-//     color: "red",
-//     padding: 50,
-//     marginLeft: -50,
-//     fontSize: 30,
-//   }
-// })
-
-// const point2 = StyleSheet.create ({
-//   container: {
-//     color: "lightblue",
-//     fontSize: 30,
-//     marginLeft: 95,
-//   }
-// })
-
-// const teams = StyleSheet.create ({
-//   container: {
-//     flex: 1,
-//     flexDirection: "row",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-// })
-
-// const team1 = StyleSheet.create ({
-//   container: {
-//     color: "red",
-//     padding: 50,
-//     marginLeft: -40,
-//     fontSize: 25,
-//   }
-// })
-
-// const team2 = StyleSheet.create ({
-//   container: {
-//     color: "lightblue",
-//     fontSize: 25,
-//   }
-// })
-
-// const ask = StyleSheet.create ({
-//   container: {
-//     flex: 1,
-//     fontSize: 30,
-//     borderRadius: 30,
-//     width: 350,
-//     height: 350,
-//     padding: 30,
-//     textAlignVertical: "center",
-//     lineHeight: 50,
-//     backgroundColor: "rgba(255, 255, 255, 0.3)",
-//     color: "black",
-//   },
-// });
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#383e4e",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     width: '100%',
-//   },
-// });
-
-// const question = StyleSheet.create({
-//   container: {
-//     flex: 0,
-//     marginTop: 50,
-//     // backgroundColor: "white",
-//     width: 350,
-//     height: 350,
-//     zIndex: 4,
-//     opacity: 1,
-//     borderRadius: 30,
-//   },
-// });
-
-// const card = StyleSheet.create({
-//   container: {
-//     backgroundColor: "rgba(255, 255, 255, 0.3)",
-//     width: 350,
-//     height: 60,
-//     padding: 20,
-//     bottom: 280,
-//     borderRadius: 30,
-//     alignItems: "center",
-//     zIndex: 2,
-//     opacity: .7,
-//   },
-// });
-
-// const category = StyleSheet.create({
-//   top: -12,
-//   fontSize: 30,
-// });
 
 export default GameView;
