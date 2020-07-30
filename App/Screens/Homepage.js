@@ -4,7 +4,7 @@ import { Image, StyleSheet, SafeAreaView, View, Text, TouchableHighlight } from 
 const Homepage = ({ history }) => {
   return (
     <SafeAreaView style={styles.page}>
-      <Text style={{ top: 125, fontSize: 50 }}>Know it all</Text>
+      <Text style={styles.title}>Know it all</Text>
       <View style={styles.page}>
         <Image
           source={require('../assets/splash.png')}
@@ -24,25 +24,31 @@ const Homepage = ({ history }) => {
 };
 
 const styles = StyleSheet.create({
-  logo: {
-    height: 400,
-    width: 400,
-    bottom: 75
-  },
   page: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    
+    backgroundColor: '#383e4e',
+    width: '100%',
+  },
+  logo: {
+    height: 400,
+    width: 400,
+    marginBottom: 75
+  },
+  title: {
+    color: '#fff',
+    marginTop: 125, 
+    fontSize: 50 
   },
   playNow: {
     color: '#fff',
     fontSize: 25
   },
   playNowButton: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#5a91e8",
     borderRadius: 20,
-    bottom: 200,
+    marginBottom: 200,
     fontSize: 100,
     height: 75,
     justifyContent: 'center',
