@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, Modal} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 
 export default class CategoriesSelect extends React.Component {
@@ -27,15 +28,16 @@ export default class CategoriesSelect extends React.Component {
 
         <Modal visible={this.state.modalVisible}>
           <View style={styles.modal}>
-            <Text style={styles.modalTitle}>{this.state.currentCat}</Text>
             <Text style={styles.modalDescription}>Select {this.state.currentCat}?</Text>
             <View style={styles.modalButtons}>
-              <TouchableHighlight  onPress={() => {this.setModalVisible(false)}}>
-                <Text style={styles.modalText}>Back</Text>
-              </TouchableHighlight>
-              <TouchableHighlight  onPress={() => this.props.history.push(`/${this.state.endpoint}`)}>
-                <Text style={styles.modalText}>Play</Text>
-              </TouchableHighlight>
+              <TouchableOpacity  onPress={() => {this.setModalVisible(false)}}>
+                {/* <Text style={styles.modalText}>Back</Text> */}
+                <Ionicons name="md-close-circle" size={50} color="red" />
+              </TouchableOpacity>
+              <TouchableOpacity  onPress={() => this.props.history.push(`/${this.state.endpoint}`)}>
+                {/* <Text style={styles.modalText}>Play</Text> */}
+                <Ionicons name="md-checkmark-circle" size={50} color="green" />
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -44,9 +46,9 @@ export default class CategoriesSelect extends React.Component {
       <View style={styles.categories}>
         {this.props.categories.map((cat, i) => {
           return (
-            <TouchableHighlight key={i} style={styles.button} onPress={() => {this.setModalVisible(true, cat.title, cat.endpoint)}}>
+            <TouchableOpacity key={i} style={styles.button} onPress={() => {this.setModalVisible(true, cat.title, cat.endpoint)}}>
               <Text style={{fontSize: 20}}>{cat.title}</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           )
         })}
       </View>
@@ -78,18 +80,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'dodgerblue',
   },
   modal: {
-    top: '20%',
-    height: '50%',
+    top: '30%',
+    height: '20%',
     margin: '10%',
     borderRadius: 20,
     justifyContent: 'space-around',
     alignItems: 'center',
     alignContent: 'space-around',
     backgroundColor: 'dodgerblue',
-  },
-  modalTitle: {
-    fontSize: 30,
-    justifyContent: 'center'
   },
   modalDescription: {
     fontSize: 20,
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '70%',
+    width: '60%',
   },
   modalText: {
     fontSize: 25,
