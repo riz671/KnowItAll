@@ -19,7 +19,7 @@ export default class Stats_View extends React.Component {
     // once it's known what is passed
     // to this module
     this.state = {
-      isClicked: false,
+      isClicked: true,
       team1Name: "Team 3",
       team2Name: "Team 6",
       team1Score: 1000,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   // ====================
-  // Icon Style
+  // Status Icon Style
   // ====================
   iconTemplate: {
     height: 10,
@@ -245,12 +245,9 @@ const styles = StyleSheet.create({
   visibleContainer: {
     alignItems: "center",
     borderRadius: 20,
-    height: "65.3%",
+    flex: 0.59,
     width: "100%",
   },
-  // ====================
-  // Inner Container
-  // ====================
   innerContainer: {
     margin: 10,
   },
@@ -261,7 +258,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     borderRadius: 20,
-    height: 225,
+    flex: 1,
   },
   teamBox: {
     margin: 5,
@@ -277,14 +274,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: 0.5,
     padding: 6,
+    paddingBottom: 0,
   },
   teamLogo: {
     width: 30,
     height: 30,
     borderRadius: 30 / 2,
-    borderWidth: 0.5,
   },
   teamTitle: {
     lineHeight: 20,

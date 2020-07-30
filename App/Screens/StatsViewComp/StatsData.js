@@ -9,12 +9,6 @@ import {
   FlatList,
 } from "react-native";
 
-// in future allow teams to
-let fakePlayers = [
-  { id: 0, name: "Koboh" },
-  { id: 1, name: "Russell" },
-];
-
 const Players = ({ name }) => {
   console.log(name);
   return (
@@ -32,7 +26,6 @@ export default class Stats_Data extends React.Component {
       wins: this.props.wins,
       losses: this.props.losses,
       draws: this.props.draws,
-      name: fakePlayers,
     };
   }
 
@@ -58,16 +51,6 @@ export default class Stats_Data extends React.Component {
             Draws: <Text style={styles.scorePoints}>{draws}</Text>
           </Text>
         </View>
-
-        <View style={styles.dataBox}>
-          <Text style={styles.title}>Players:</Text>
-          <FlatList
-            data={name}
-            renderItem={({ item }) => (
-              <Text style={styles.playerName}>{item.name}</Text>
-            )}
-          />
-        </View>
       </View>
     );
   }
@@ -75,10 +58,12 @@ export default class Stats_Data extends React.Component {
 
 const styles = StyleSheet.create({
   dataContainer: {
-    width: 130,
+    width: "100%",
     margin: 10,
     alignItems: "center",
     flex: 1,
+    borderTopWidth: 1,
+    paddingTop: 10,
   },
   dataBox: {
     marginBottom: 5,
