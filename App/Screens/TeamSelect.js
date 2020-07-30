@@ -44,10 +44,24 @@ export default class TeamSelect extends React.Component {
   }
 
   onSubmit() {
-    this.setState({ team1Selected: false });
+    let {
+      team1Selected,
+      team1Name,
+      team2Name,
+      team1Icon,
+      team2Icon,
+    } = this.state;
 
-    if (!this.state.team1Selected) {
+    if (team1Selected && (!team1Name.length || !team1Icon.length)) {
+      alert("Input remaining fields for Team 1");
+    } else if (team1Selected) {
       this.setState({ team1Selected: false });
+    }
+
+    if (!team1Selected && (!team2Name.length || !team2Icon.length)) {
+      alert("Input remaining fields for Team 2");
+    } else if (!team1Selected) {
+      console.log("pass info to Stats, forward page to categoriesSelect");
     }
   }
 
@@ -107,7 +121,7 @@ export default class TeamSelect extends React.Component {
         </View>
 
         <View style={styles.submitContainer}>
-          <TouchableOpacity style={styles.submitButton}>
+          <TouchableOpacity style={styles.submitButton} onPress={this.onSubmit}>
             <Text style={styles.submitText}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -119,7 +133,7 @@ export default class TeamSelect extends React.Component {
 const styles = {
   container: {
     flex: 1,
-    // backgroundColor: "lightgreen",
+    backgroundColor: "lightgreen",
     alignItems: "center",
     justifyContent: "center",
     // fontSize: 30,
@@ -142,13 +156,14 @@ const styles = {
     fontSize: 30,
     width: 300,
     padding: 10,
-    // backgroundColor: "lightblue",
+    backgroundColor: "lightblue",
   },
   // ====================
   // Color select Styles
   // ====================
   iconMenu: {
     alignItems: "center",
+    backgroundColor: "darkred",
   },
   colorSelect: {
     flexDirection: "row",
@@ -160,6 +175,7 @@ const styles = {
     flex: 1,
     width: "70%",
     margin: 10,
+    // backgroundColor: ''
   },
   submitButton: {
     borderWidth: 2,
