@@ -108,11 +108,12 @@ class GameView extends React.Component {
   }
 
   nextQuestion() {
+    this.getInfo();
     this.setState ({
       countPage: false,
       gamePage: true,
       roundFinish: false,
-      roundCount: 30
+      roundCount: 5
     })
   }
 
@@ -242,10 +243,10 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 25,
     padding: 5,
-    color: "#383e4e",
-    borderWidth: 3,
-    borderRadius: 15,
-    borderColor: "#383e4e"
+    color: "white",
+    backgroundColor: "rgba(90, 145, 232, .5)",
+    borderWidth: .1,
+    borderRadius: 15
   },
   countText: {
     fontSize: 100,
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   blue: {
-    color: 'rgb(121, 190, 219)',
+    color: 'rgb(90, 145, 232)',
   },
 })
 
