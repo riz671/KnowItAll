@@ -4,189 +4,135 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   SafeAreaView,
   TouchableOpacity,
-  Button,
   TextInput,
 } from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default class TeamSelect extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      team1Selected: true,
-      team1Name: "",
-      team2Name: "",
-      team1Icon: "",
-      team2Icon: "",
-    };
-    this.onChangeText = this.onChangeText.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+export default function TeamSelect({ history, state, onChangeText, iconSelection, onSubmit }) {
+  let message, currentTeam, currentIcon;
+  let colors = ["crimson", "steelblue", "mediumseagreen", "gold", "gray", "purple"];
+
+  if (state.team1Selected) {
+    message = "Enter Team 1 Name:";
+    currentTeam = "team1Name";
+    currentIcon = "team1Icon";
+  } else {
+    message = "Enter Team 2 Name:";
+    currentTeam = "team2Name";
+    currentIcon = "team2Icon";
   }
 
-  onChangeText = (team, text) => {
-    this.setState({
-      [team]: text,
-    });
-  };
+  let textInput = null;
 
-  iconSelection(team, colorName) {
-    this.setState(
-      {
-        [team]: colorName,
-      },
-      () => console.log(this.state)
-    );
+  const handleSubmit = () => {
+    onSubmit();
+    textInput.clear();
+    !state.team1Selected && state.team2Icon ? history.push('/select-category') : null;
   }
 
-  onSubmit() {
-    let {
-      team1Selected,
-      team1Name,
-      team2Name,
-      team1Icon,
-      team2Icon,
-    } = this.state;
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.teamNameInput}>
+        <Text style={styles.message}>{message}</Text>
+        <TextInput
+          ref={(input) => { textInput = input; }}
+          style={styles.inputBox}
+          placeholder="8 Characters Max"
+          maxLength={8}
+          onChangeText={(text) => onChangeText(currentTeam, text)}
+        />
+      </View>
 
-    if (team1Selected && (!team1Name.length || !team1Icon.length)) {
-      alert("Input remaining fields for Team 1");
-    } else if (team1Selected) {
-      this.setState({ team1Selected: false });
-    }
+      <View style={styles.iconMenu}>
+        <Text style={styles.message}>Choose an Icon!</Text>
 
-    if (!team1Selected && (!team2Name.length || !team2Icon.length)) {
-      alert("Input remaining fields for Team 2");
-    } else if (!team1Selected) {
-      console.log("pass info to Stats, forward page to categoriesSelect");
-    }
-  }
-
-  render() {
-    let message, placeholderText, currentTeam, currentIcon;
-    let colors = [
-      "crimson",
-      "steelblue",
-      "mediumseagreen",
-      "gold",
-      "gray",
-      "purple",
-    ];
-
-    if (this.state.team1Selected) {
-      message = "Enter Team 1 Name: ";
-      currentTeam = "team1Name";
-      currentIcon = "team1Icon";
-    } else {
-      message = "Enter Team 2 Name: ";
-      currentTeam = "team2Name";
-      currentIcon = "team2Icon";
-    }
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.teamNameInput}>
-          <Text style={styles.message}>{message}</Text>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="8 Characters Max"
-            maxLength={8}
-            onChangeText={(text) => this.onChangeText(currentTeam, text)}
-          />
+        <View style={styles.colorSelect}>
+          {colors.map((color, i) => (
+              <TouchableOpacity key={i} onPress={() => iconSelection(currentIcon, color)}>
+                <MaterialCommunityIcons name="circle" size={50} color={color} />
+              </TouchableOpacity>
+          ))}
         </View>
+      </View>
 
-        <View style={styles.iconMenu}>
-          <Text style={styles.message}>Choose an Icon!</Text>
-
-          <View style={styles.colorSelect}>
-            {colors.map((color) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    this.iconSelection(currentIcon, color);
-                  }}
-                >
-                  <MaterialCommunityIcons
-                    name="circle"
-                    size={50}
-                    color={color}
-                  />
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-
-        <View style={styles.submitContainer}>
-          <TouchableOpacity style={styles.submitButton} onPress={this.onSubmit}>
-            <Text style={styles.submitText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    );
-  }
+      <View style={styles.submitContainer}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.submitText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgreen",
     alignItems: "center",
     justifyContent: "center",
-    // fontSize: 30,
+    width: "100%",
   },
+
   // ====================
   // Partial Container Styles
   // ====================
+
   teamNameInput: {
-    flex: 2,
-    justifyContent: "space-around",
     alignItems: "center",
+    height: "30%",
+    justifyContent: "space-around",
+    marginBottom: 60,
   },
   message: {
     fontSize: 40,
+    marginBottom: 10,
   },
   inputBox: {
-    // borderColor: "gray",
+    borderRadius: 20,
     borderWidth: 1,
-    underline: 5,
+    // underline: 5,
     fontSize: 30,
     width: 300,
     padding: 10,
     backgroundColor: "lightblue",
   },
+
   // ====================
   // Color select Styles
   // ====================
+
   iconMenu: {
     alignItems: "center",
-    backgroundColor: "darkred",
+    marginBottom: 60,
   },
   colorSelect: {
     flexDirection: "row",
   },
+
   // ====================
   // Submit Styles
   // ====================
+
   submitContainer: {
-    flex: 1,
     width: "70%",
+    height: 60,
     margin: 10,
-    // backgroundColor: ''
   },
   submitButton: {
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizantal: 10,
+    backgroundColor: "dodgerblue",
+    borderRadius: 20,
+    height: "100%",
     alignItems: "center",
+    justifyContent: "center",
+    
   },
   submitText: {
-    paddingHorizantal: 50,
-    paddingVertical: 5,
+    color: "white",
+    justifyContent: "center",
+    alignItems: "center",
     fontSize: 30,
   },
-};
+});
