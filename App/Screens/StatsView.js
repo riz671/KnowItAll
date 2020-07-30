@@ -10,16 +10,16 @@ import {
   Button,
 } from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
-import { Entypo } from "@expo/vector-icons";
-
-const upArrow = <Entypo name="chevron-thin-up" size={30} color="black" />;
-const downArrow = <Entypo name="chevron-thin-down" size={30} color="black" />;
+import { LinearGradient } from "expo-linear-gradient";
 
 export default class Stats_View extends React.Component {
   constructor(props) {
     super(props);
+    // change state's key values to props
+    // once it's known what is passed
+    // to this module
     this.state = {
-      isClicked: true,
+      isClicked: false,
       team1Name: "Team 3",
       team2Name: "Team 6",
       team1Score: 1000,
@@ -53,8 +53,7 @@ export default class Stats_View extends React.Component {
       icon2,
     } = this.state;
 
-    const arrow = this.state.isClicked ? upArrow : downArrow;
-
+    // handles icon colors
     if (team1Turn) {
       icon1 = [styles.iconTemplate, styles.activeIcon];
       icon2 = [styles.iconTemplate, styles.inactiveIcon];
@@ -63,10 +62,23 @@ export default class Stats_View extends React.Component {
       icon2 = [styles.iconTemplate, styles.activeIcon];
     }
 
-    const visibleStatsPage = (
-      <View style={styles.visibleContainer}>
+    // stores structure for detailed stats page
+    const detailedStats = (
+      <View style={styles.visibleContainer} onPress={this.toggleClick}>
+        <LinearGradient
+          colors={["#78a8df", "#d5d5d5"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "100%",
+            borderRadius: 20,
+          }}
+        />
         <View style={styles.innerContainer}>
           <View style={styles.teamFlexContainer}>
+            {/* Team 1 */}
             <View style={styles.teamBox}>
               <View style={styles.teamHeader}>
                 <Image
@@ -89,6 +101,7 @@ export default class Stats_View extends React.Component {
 
             <View style={styles.divider} />
 
+            {/* Team 2 */}
             <View style={styles.teamBox}>
               <View style={styles.teamHeader}>
                 <Image
@@ -113,8 +126,20 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const partialStatsPage = (
-      <View style={styles.partialContainer}>
+    const partialStats = (
+      <View style={styles.partialContainer} onPress={this.toggleClick}>
+        <LinearGradient
+          colors={["#78a8df", "#d5d5d5"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "170%",
+            borderRadius: 20,
+          }}
+        />
+        {/* Team 1 */}
         <View style={styles.partialTeamBox}>
           <View>
             <Text style={styles.partialTitle}>{team1Name}</Text>
@@ -123,12 +148,13 @@ export default class Stats_View extends React.Component {
           <Image style={icon1}></Image>
 
           <View>
-            <Text style={styles.partialScore}> {team1Score}</Text>
+            <Text style={styles.partialScore}> {team1Wins} WON</Text>
           </View>
         </View>
 
         <View style={styles.divider} />
 
+        {/* Team 2 */}
         <View style={styles.partialTeamBox}>
           <View>
             <Text style={styles.partialTitle}>{team2Name}</Text>
@@ -137,25 +163,20 @@ export default class Stats_View extends React.Component {
           <Image style={icon2}></Image>
 
           <View>
-            <Text style={styles.partialScore}> {team2Score}</Text>
+            <Text style={styles.partialScore}> {team1Losses} WON</Text>
           </View>
         </View>
       </View>
     );
 
     const correctContainer = this.state.isClicked
-      ? visibleStatsPage
-      : partialStatsPage;
+      ? detailedStats
+      : partialStats;
 
     return (
-      <SafeAreaView>
-        {correctContainer}
-        <TouchableOpacity
-          style={styles.arrow}
-          activeOpacity={0.3}
-          onPress={this.toggleClick}
-        >
-          <Text>{arrow}</Text>
+      <SafeAreaView style={styles.mainContainer}>
+        <TouchableOpacity focusedOpacity={0.9} onPress={this.toggleClick}>
+          {correctContainer}
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -163,19 +184,21 @@ export default class Stats_View extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    display: "flex",
+    alignItems: "center",
+    top: "6.3%",
+  },
   // ====================
   // Partial Container Styles
   // ====================
   partialContainer: {
-    backgroundColor: "aliceblue",
     justifyContent: "center",
     flexDirection: "row",
-    top: 10,
-    borderWidth: 2,
     borderRadius: 20,
-    height: 54,
-    margin: 6,
+    height: "38.5%",
     padding: 10,
+    width: "97%",
   },
   partialTeamBox: {
     alignItems: "center",
@@ -192,7 +215,6 @@ const styles = StyleSheet.create({
     width: 10,
     borderRadius: 10 / 2,
     borderWidth: 0.25,
-    lineHeight: 30,
     marginRight: 6,
     marginLeft: 3,
   },
@@ -221,14 +243,10 @@ const styles = StyleSheet.create({
   // Main Container
   // ====================
   visibleContainer: {
-    backgroundColor: "aliceblue",
     alignItems: "center",
-    justifyContent: "flex-start",
-    top: 10,
-    borderWidth: 2,
     borderRadius: 20,
-    height: 245,
-    margin: 6,
+    height: "65.3%",
+    width: "100%",
   },
   // ====================
   // Inner Container
@@ -247,6 +265,7 @@ const styles = StyleSheet.create({
   },
   teamBox: {
     margin: 5,
+    marginHorizontal: 14,
     width: 160,
     alignItems: "center",
     borderRadius: 20,
@@ -275,17 +294,7 @@ const styles = StyleSheet.create({
     paddingRight: 4,
   },
   divider: {
-    borderLeftWidth: 3,
-    borderLeftColor: "black",
-  },
-  // ====================
-  // Arrow Styles
-  // ====================
-  arrow: {
-    top: 3,
-    display: "flex",
-    alignItems: "center",
-    borderWidth: 0.5,
-    borderRadius: 15,
+    borderLeftWidth: 1.5,
+    borderLeftColor: "rgba(0, 0, 0, 0.5)",
   },
 });
