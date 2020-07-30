@@ -62,17 +62,15 @@ export default class App extends React.Component {
   onSubmit() {
     let { team1Selected, team1Name, team2Name, team1Icon, team2Icon } = this.state;
 
-    if (team1Selected && (!team1Name.length || !team1Icon.length)) {
+    if (team1Selected && !team1Name.length) {
       alert("Input remaining fields for Team 1");
     } else if (team1Selected) {
       this.setState({ team1Selected: false });
     }
 
-    if (!team1Selected && (!team2Name.length || !team2Icon.length)) {
+    if (!team1Selected && !team2Name.length) {
       alert("Input remaining fields for Team 2");
     }
-
-    console.log(this.state);
   }
 
   render() {

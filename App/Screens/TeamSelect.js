@@ -13,17 +13,21 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function TeamSelect({ history, state, onChangeText, iconSelection, onSubmit }) {
-  let message, currentTeam, currentIcon;
+  let message, currentTeam, currentIcon, finalIcon, finalTeamName;
   let colors = ["crimson", "steelblue", "mediumseagreen", "gold", "gray", "purple"];
 
   if (state.team1Selected) {
     message = "Enter Team 1 Name:";
     currentTeam = "team1Name";
     currentIcon = "team1Icon";
+    finalIcon = state.team1Icon;
+    finalTeamName = state.team1Name;
   } else {
     message = "Enter Team 2 Name:";
     currentTeam = "team2Name";
     currentIcon = "team2Icon";
+    finalIcon = state.team2Icon;
+    finalTeamName = state.team2Name;
   }
 
   let textInput = null;
@@ -38,13 +42,16 @@ export default function TeamSelect({ history, state, onChangeText, iconSelection
     <SafeAreaView style={styles.container}>
       <View style={styles.teamNameInput}>
         <Text style={styles.message}>{message}</Text>
-        <TextInput
-          ref={(input) => { textInput = input; }}
-          style={styles.inputBox}
-          placeholder="8 Characters Max"
-          maxLength={8}
-          onChangeText={(text) => onChangeText(currentTeam, text)}
-        />
+        <View style={styles.teamInfo}>
+          <MaterialCommunityIcons style={styles.selectedIcon} name="circle" size={40} color={finalIcon} />
+          <TextInput
+            ref={(input) => { textInput = input; }}
+            style={styles.inputBox}
+            placeholder="8 Characters Max"
+            maxLength={8}
+            onChangeText={(text) => onChangeText(currentTeam, text)}
+          />
+        </View>
       </View>
 
       <View style={styles.iconMenu}>
@@ -52,7 +59,7 @@ export default function TeamSelect({ history, state, onChangeText, iconSelection
 
         <View style={styles.colorSelect}>
           {colors.map((color, i) => (
-              <TouchableOpacity key={i} onPress={() => iconSelection(currentIcon, color)}>
+              <TouchableOpacity style={styles.inactive} key={i} onPress={() => iconSelection(currentIcon, color)}>
                 <MaterialCommunityIcons name="circle" size={50} color={color} />
               </TouchableOpacity>
           ))}
@@ -100,6 +107,12 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
   },
 
+  teamInfo: {
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+
   // ====================
   // Color select Styles
   // ====================
@@ -107,9 +120,16 @@ const styles = StyleSheet.create({
   iconMenu: {
     alignItems: "center",
     marginBottom: 60,
+    width: '90%'
   },
   colorSelect: {
     flexDirection: "row",
+    justifyContent: 'space-evenly',
+    alignContent: 'space-around',
+    width: '100%'
+  },
+  selectedIcon: {
+    marginRight: 10,
   },
 
   // ====================
