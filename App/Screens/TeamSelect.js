@@ -12,9 +12,23 @@ import StatsData from "./StatsViewComp/StatsData.js";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function TeamSelect({ history, state, onChangeText, iconSelection, onSubmit }) {
+export default function TeamSelect({
+  history,
+  state,
+  onChangeText,
+  iconSelection,
+  onSubmit,
+}) {
   let message, currentTeam, currentIcon, finalIcon, finalTeamName;
-  let colors = ["crimson", "steelblue", "mediumseagreen", "gold", "gray", "purple"];
+  console.log(state);
+  let colors = [
+    "crimson",
+    "steelblue",
+    "mediumseagreen",
+    "gold",
+    "gray",
+    "purple",
+  ];
 
   if (state.team1Selected) {
     message = "Enter Team 1 Name:";
@@ -33,19 +47,30 @@ export default function TeamSelect({ history, state, onChangeText, iconSelection
   let textInput = null;
 
   const handleSubmit = () => {
-    onSubmit();
     textInput.clear();
-    !state.team1Selected && state.team2Icon ? history.push('/select-category') : null;
-  }
+    onSubmit();
+    !state.team1Selected &&
+    state.team2Icon &&
+    state.team1Icon !== state.team2Icon
+      ? history.push("/select-category")
+      : null;
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.teamNameInput}>
         <Text style={styles.message}>{message}</Text>
         <View style={styles.teamInfo}>
-          <MaterialCommunityIcons style={styles.selectedIcon} name="circle" size={40} color={finalIcon} />
+          <MaterialCommunityIcons
+            style={styles.selectedIcon}
+            name="circle"
+            size={40}
+            color={finalIcon}
+          />
           <TextInput
-            ref={(input) => { textInput = input; }}
+            ref={(input) => {
+              textInput = input;
+            }}
             style={styles.inputBox}
             placeholder="8 Characters Max"
             maxLength={8}
@@ -59,9 +84,13 @@ export default function TeamSelect({ history, state, onChangeText, iconSelection
 
         <View style={styles.colorSelect}>
           {colors.map((color, i) => (
-              <TouchableOpacity style={styles.inactive} key={i} onPress={() => iconSelection(currentIcon, color)}>
-                <MaterialCommunityIcons name="circle" size={50} color={color} />
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.inactive}
+              key={i}
+              onPress={() => iconSelection(currentIcon, color)}
+            >
+              <MaterialCommunityIcons name="circle" size={50} color={color} />
+            </TouchableOpacity>
           ))}
         </View>
       </View>
@@ -108,9 +137,9 @@ const styles = StyleSheet.create({
   },
 
   teamInfo: {
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   // ====================
@@ -120,13 +149,13 @@ const styles = StyleSheet.create({
   iconMenu: {
     alignItems: "center",
     marginBottom: 60,
-    width: '90%'
+    width: "90%",
   },
   colorSelect: {
     flexDirection: "row",
-    justifyContent: 'space-evenly',
-    alignContent: 'space-around',
-    width: '100%'
+    justifyContent: "space-evenly",
+    alignContent: "space-around",
+    width: "100%",
   },
   selectedIcon: {
     marginRight: 10,
@@ -147,7 +176,6 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   submitText: {
     color: "white",
