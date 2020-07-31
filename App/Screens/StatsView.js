@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import StatsData from "./StatsViewComp/StatsData.js";
 import { LinearGradient } from "expo-linear-gradient";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class Stats_View extends React.Component {
   constructor(props) {
@@ -20,16 +21,18 @@ export default class Stats_View extends React.Component {
     // to this module
     this.state = {
       isClicked: true,
-      team1Name: "Team 3",
-      team2Name: "Team 6",
-      team1Score: 1000,
-      team2Score: 500,
-      team1Wins: 1,
-      team1Losses: 3,
-      team1Draws: 2,
+      team1Name: this.props.teamInfo.team1Name,
+      team2Name: this.props.teamInfo.team2Name,
+      team1Score: this.props.team1Points,
+      team2Score: this.props.team2Points,
+      team1Wins: this.props.teamInfo.team1Wins,
+      team1Losses: this.props.teamInfo.team2Wins,
+      team1Draws: 0,
       team1Turn: true,
-      icon1: undefined,
-      icon2: undefined,
+      statusIcon1: undefined,
+      statusIcon2: undefined,
+      team1Icon: this.props.teamInfo.team1Icon,
+      team2Icon: this.props.teamInfo.team2Icon,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -41,32 +44,44 @@ export default class Stats_View extends React.Component {
   render() {
     let {
       isClicked,
-      team1Name,
-      team2Name,
-      team1Score,
-      team2Score,
-      team1Wins,
-      team1Losses,
+      // team1Name,
+      // team2Name,
+      // team1Score,
+      // team2Score,
+      // team1Wins,
+      // team1Losses,
       team1Draws,
       team1Turn,
-      icon1,
-      icon2,
+      statusIcon1,
+      statusIcon2,
+      // team1Icon,
+      // team2Icon,
     } = this.state;
+
+    let { team1Points, team2Points } = this.props;
+    let {
+      team1Name,
+      team2Name,
+      team1Wins,
+      team2Wins,
+      team1Icon,
+      team2Icon,
+    } = this.props.teamInfo;
 
     // handles icon colors
     if (team1Turn) {
-      icon1 = [styles.iconTemplate, styles.activeIcon];
-      icon2 = [styles.iconTemplate, styles.inactiveIcon];
+      statusIcon1 = [styles.iconTemplate, styles.activeIcon];
+      statusIcon2 = [styles.iconTemplate, styles.inactiveIcon];
     } else {
-      icon1 = [styles.iconTemplate, styles.inactiveIcon];
-      icon2 = [styles.iconTemplate, styles.activeIcon];
+      statusIcon1 = [styles.iconTemplate, styles.inactiveIcon];
+      statusIcon2 = [styles.iconTemplate, styles.activeIcon];
     }
 
     // stores structure for detailed stats page
     const detailedStats = (
       <View style={styles.visibleContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["#78a8df", "#d5d5d5"]}
+          colors={["rgba(255, 255, 255, .3)", "rgba(255, 255, 255, .3)"]}
           style={{
             position: "absolute",
             left: 0,
@@ -82,12 +97,11 @@ export default class Stats_View extends React.Component {
             <View style={styles.teamBox}>
               <View style={styles.teamHeader}>
                 <Image
-                  style={styles.teamLogo}
-                  source={require("./StatsViewComp/mercedes.png")}
+                  style={[styles.teamLogo, { backgroundColor: team1Icon }]}
                 ></Image>
 
                 <Text style={styles.teamTitle}>{team1Name}</Text>
-                <Image style={icon1}></Image>
+                <Image style={statusIcon1}></Image>
               </View>
 
               <StatsData
@@ -105,12 +119,11 @@ export default class Stats_View extends React.Component {
             <View style={styles.teamBox}>
               <View style={styles.teamHeader}>
                 <Image
-                  style={styles.teamLogo}
-                  source={require("./StatsViewComp/mercedes.png")}
+                  style={[styles.teamLogo, { backgroundColor: team2Icon }]}
                 ></Image>
 
                 <Text style={styles.teamTitle}>{team2Name}</Text>
-                <Image style={icon2}></Image>
+                <Image style={statusIcon2}></Image>
               </View>
 
               <StatsData
@@ -129,7 +142,7 @@ export default class Stats_View extends React.Component {
     const partialStats = (
       <View style={styles.partialContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["#78a8df", "#d5d5d5"]}
+          colors={["rgba(255, 255, 255, .3)", "rgba(255, 255, 255, .3)"]}
           style={{
             position: "absolute",
             left: 0,
@@ -145,7 +158,7 @@ export default class Stats_View extends React.Component {
             <Text style={styles.partialTitle}>{team1Name}</Text>
           </View>
 
-          <Image style={icon1}></Image>
+          <Image style={statusIcon1}></Image>
 
           <View>
             <Text style={styles.partialScore}> {team1Wins} WON</Text>
@@ -160,7 +173,7 @@ export default class Stats_View extends React.Component {
             <Text style={styles.partialTitle}>{team2Name}</Text>
           </View>
 
-          <Image style={icon2}></Image>
+          <Image style={statusIcon2}></Image>
 
           <View>
             <Text style={styles.partialScore}> {team1Losses} WON</Text>
@@ -187,7 +200,9 @@ const styles = StyleSheet.create({
   mainContainer: {
     display: "flex",
     alignItems: "center",
-    top: "6.3%",
+    // top: "6.3%",
+    height: "100%",
+    width: "100%",
   },
   // ====================
   // Partial Container Styles
@@ -196,9 +211,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     borderRadius: 20,
-    height: "38.5%",
+    height: "100%",
     padding: 10,
-    width: "97%",
+    width: "100%",
+    backgroundColor: "#383e4e",
   },
   partialTeamBox: {
     alignItems: "center",
@@ -206,6 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 10,
     flex: 1,
+    // backgroundColor: "#fff",
   },
   // ====================
   // Status Icon Style
@@ -217,6 +234,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.25,
     marginRight: 6,
     marginLeft: 3,
+    opacity: 0,
   },
   activeIcon: {
     backgroundColor: "#00FA9A",
@@ -232,12 +250,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
     lineHeight: 30,
     fontSize: 20,
+    color: "#fff",
   },
   partialScore: {
     flex: 3,
     lineHeight: 30,
     fontWeight: "bold",
     fontSize: 20,
+    color: "#fff",
   },
   // ====================
   // Main Container
@@ -245,8 +265,11 @@ const styles = StyleSheet.create({
   visibleContainer: {
     alignItems: "center",
     borderRadius: 20,
-    flex: 0.59,
     width: "100%",
+    height: 185,
+    color: "black",
+    zIndex: 5,
+    backgroundColor: "#383e4e",
   },
   innerContainer: {
     margin: 10,
@@ -259,6 +282,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 20,
     flex: 1,
+    // backgroundColor: "#fff",
+    // height: 200,
   },
   teamBox: {
     margin: 5,
@@ -266,6 +291,7 @@ const styles = StyleSheet.create({
     width: 160,
     alignItems: "center",
     borderRadius: 20,
+    height: 150,
   },
   // ====================
   // Team Header Styles
@@ -281,6 +307,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 30 / 2,
+    borderWidth: 0.25,
   },
   teamTitle: {
     lineHeight: 20,
@@ -288,6 +315,7 @@ const styles = StyleSheet.create({
     marginBottom: -4,
     paddingLeft: 8,
     paddingRight: 4,
+    color: "#fff",
   },
   divider: {
     borderLeftWidth: 1.5,

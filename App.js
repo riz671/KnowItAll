@@ -4,10 +4,10 @@ import { StyleSheet, View } from "react-native";
 import { NativeRouter, Route, Switch } from "react-router-native";
 
 import Categories from "./categories.js";
-import Homepage from "./App/Screens/Homepage.js";
-import CategoriesSelect from "./App/Screens/CategoriesSelect.js";
-import GameView from "./App/Screens/GameView.js";
-import TeamSelect from "./App/Screens/TeamSelect.js";
+import Homepage from "./app/screens/Homepage.js";
+import CategoriesSelect from "./app/screens/CategoriesSelect.js";
+import GameView from "./app/screens/GameView.js";
+import TeamSelect from "./app/screens/TeamSelect.js";
 
 export default class App extends React.Component {
   constructor(props) {
