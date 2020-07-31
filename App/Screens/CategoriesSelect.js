@@ -48,7 +48,7 @@ export default class CategoriesSelect extends React.Component {
         {this.props.categories.map((cat, i) => {
           return (
             <TouchableOpacity key={i} style={styles.button} onPress={() => {this.setModalVisible(true, cat.title, cat.endpoint)}}>
-              <Text style={{fontSize: 20, color: 'white'}}>{cat.title}</Text>
+              <Text style={styles.catText}>{cat.title}</Text>
             </TouchableOpacity>
           )
         })}
@@ -80,6 +80,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#5A91E8',
+  },
+  catText: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
   },
   modal: {
     // top: '30%',
