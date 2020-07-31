@@ -20,29 +20,31 @@ export default class Stats_View extends React.Component {
     // once it's known what is passed
     // to this module
     this.state = {
-      isClicked: true,
+      displaySmallStatsPage: true,
       team1Draws: 0,
       team1Turn: true,
       statusIcon1: undefined,
       statusIcon2: undefined,
+      team1Points: this.props.team1Points,
+      team2Points: this.props.team2Points,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
 
   toggleClick() {
-    this.setState({ isClicked: !this.state.isClicked });
+    this.setState({ displaySmallStatsPage: !this.state.displaySmallStatsPage });
   }
 
   render() {
     let {
-      isClicked,
+      displaySmallStatsPage,
       team1Draws,
       team1Turn,
       statusIcon1,
       statusIcon2,
+      team1Points,
+      team2Points,
     } = this.state;
-
-    let { team1Points, team2Points, teamInfo } = this.props;
 
     let {
       team1Name,
@@ -51,10 +53,7 @@ export default class Stats_View extends React.Component {
       team2Wins,
       team1Icon,
       team2Icon,
-    } = teamInfo;
-
-    team2Wins = 2;
-    team1Wins = 3;
+    } = this.props.teamInfo;
 
     // handles icon colors
     if (team1Turn) {
@@ -170,9 +169,9 @@ export default class Stats_View extends React.Component {
       </View>
     );
 
-    const correctContainer = this.state.isClicked
-      ? detailedStats
-      : partialStats;
+    const correctContainer = this.state.displaySmallStatsPage
+      ? partialStats
+      : detailedStats;
 
     return (
       <SafeAreaView style={styles.mainContainer}>
