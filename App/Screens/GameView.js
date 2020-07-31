@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView} from "react-native";
+import {Alert, StyleSheet, Text, View, SafeAreaView} from "react-native";
 import axios from 'axios';
 
 class GameView extends React.Component {
@@ -44,6 +44,7 @@ class GameView extends React.Component {
 
       string = string.replace(/&#039;/g, "'");
       string = string.replace(/&rsquo;/g, "'");
+      string = string.replace(/&quot;/g, "'");
 
       this.setState ({
         realQ: string
@@ -52,17 +53,26 @@ class GameView extends React.Component {
   }
 
   changePoints(e, name) {
-
     if(name === 'team1Points' && this.state.roundCount < 1) {
       this.setState ({
         team1Points: this.state.team1Points + 1
       })
     }
 
+    if(name === 'team1Points' && this.state.team1Points > 5) {
+      Alert.alert("Team 1 wins!");
+      this.props.endRound("team1Wins");
+    }
+
     if(name === 'team2Points' && this.state.roundCount < 1) {
       this.setState ({
         team2Points: this.state.team2Points + 1
       })
+    }
+
+    if(name === 'team2Points' && this.state.team2Points > 5) {
+      Alert.alert("Team 2 wins!");
+      this.props.endRound("team2Wins");
     }
     console.log(this.state.team1Points);
   }
@@ -120,13 +130,12 @@ class GameView extends React.Component {
   }
 
   checkQuestion() {
-    this.setState ({
-      roundCount: 0
+    this.setState({
+      roundCount: 0,
+      countPage: false,
+      gamePage: false,
+      roundFinish: true
     })
-
-    if(this.state.roundCount === 0) {
-
-    }
   }
 
 
@@ -163,7 +172,7 @@ class GameView extends React.Component {
           <View style={styles.questionContainer}>
             <Text style={styles.questionText}>{this.state.realQ}</Text>
             <Text style={styles.countText2} onActive={this.roundCounter}>{this.state.roundCount}</Text>
-            <Text style={styles.checkQ} onPress={this.nextQuestion}>Check Answer</Text>
+            <Text style={styles.checkQ} onPress={this.checkQuestion}>Check Answer</Text>
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
