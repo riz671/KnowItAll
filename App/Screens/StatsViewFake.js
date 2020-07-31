@@ -19,7 +19,7 @@ export default class Stats_View extends React.Component {
     // once it's known what is passed
     // to this module
     this.state = {
-      isClicked: true,
+      isClicked: false,
       team1Name: "Team 3",
       team2Name: "Team 6",
       team1Score: 1000,
@@ -66,7 +66,7 @@ export default class Stats_View extends React.Component {
     const detailedStats = (
       <View style={styles.visibleContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["rgba(255, 255, 255, .3)", "rgba(255, 255, 255, .3)"]}
+          colors={["#78a8df", "#d5d5d5"]}
           style={{
             position: "absolute",
             left: 0,
@@ -129,7 +129,7 @@ export default class Stats_View extends React.Component {
     const partialStats = (
       <View style={styles.partialContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["rgba(255, 255, 255, .3)", "rgba(255, 255, 255, .3)"]}
+          colors={["#78a8df", "#d5d5d5"]}
           style={{
             position: "absolute",
             left: 0,
@@ -187,9 +187,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     display: "flex",
     alignItems: "center",
-    // top: "6.3%",
-    height: "100%",
-    width: "100%",
+    top: "6.3%",
   },
   // ====================
   // Partial Container Styles
@@ -198,10 +196,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     borderRadius: 20,
-    height: "100%",
+    height: "38.5%",
     padding: 10,
-    width: "100%",
-    // backgroundColor: "#fff",
+    width: "97%",
   },
   partialTeamBox: {
     alignItems: "center",
@@ -209,7 +206,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 10,
     flex: 1,
-    // backgroundColor: "#fff",
   },
   // ====================
   // Status Icon Style
@@ -236,14 +232,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
     lineHeight: 30,
     fontSize: 20,
-    color: "#fff",
   },
   partialScore: {
     flex: 3,
     lineHeight: 30,
     fontWeight: "bold",
     fontSize: 20,
-    color: "#fff",
   },
   // ====================
   // Main Container
@@ -251,11 +245,8 @@ const styles = StyleSheet.create({
   visibleContainer: {
     alignItems: "center",
     borderRadius: 20,
+    flex: 0.59,
     width: "100%",
-    height: 185,
-    color: "black",
-    zIndex: 5,
-    backgroundColor: "rgb(255, 255, 255)",
   },
   innerContainer: {
     margin: 10,
@@ -268,8 +259,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 20,
     flex: 1,
-    // backgroundColor: "#fff",
-    // height: 200,
   },
   teamBox: {
     margin: 5,
@@ -277,7 +266,6 @@ const styles = StyleSheet.create({
     width: 160,
     alignItems: "center",
     borderRadius: 20,
-    height: 150,
   },
   // ====================
   // Team Header Styles
@@ -300,7 +288,6 @@ const styles = StyleSheet.create({
     marginBottom: -4,
     paddingLeft: 8,
     paddingRight: 4,
-    color: "#fff",
   },
   divider: {
     borderLeftWidth: 1.5,
