@@ -13,7 +13,7 @@ class GameView extends React.Component {
       team1Points: 0,
       team2Points: 0,
       countDown: 3,
-      roundCount: 8,
+      roundCount: 33,
       countPage: true,
       gamePage: false,
       roundFinish: false
@@ -23,6 +23,7 @@ class GameView extends React.Component {
     this.count = this.count.bind(this);
     this.roundCounter = this.roundCounter.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.checkQuestion = this.checkQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -51,13 +52,14 @@ class GameView extends React.Component {
   }
 
   changePoints(e, name) {
-    if(name === 'team1Points') {
+
+    if(name === 'team1Points' && this.state.roundCount < 1) {
       this.setState ({
         team1Points: this.state.team1Points + 1
       })
     }
 
-    if(name === 'team2Points') {
+    if(name === 'team2Points' && this.state.roundCount < 1) {
       this.setState ({
         team2Points: this.state.team2Points + 1
       })
@@ -108,12 +110,23 @@ class GameView extends React.Component {
   }
 
   nextQuestion() {
+    this.getInfo();
     this.setState ({
       countPage: false,
       gamePage: true,
       roundFinish: false,
       roundCount: 30
     })
+  }
+
+  checkQuestion() {
+    this.setState ({
+      roundCount: 0
+    })
+
+    if(this.state.roundCount === 0) {
+
+    }
   }
 
 
@@ -129,11 +142,11 @@ class GameView extends React.Component {
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
+              <Text style={[styles.teamFont, styles.red]}>{this.props.obj.team1Icon}{this.props.obj.team1Name}</Text>
               <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team1Points')}>{this.state.team1Points}</Text>
             </View>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
+              <Text style={[styles.teamFont, styles.blue]}>{this.props.obj.team2Icon}{this.props.obj.team2Name}</Text>
               <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team2Points')}>{this.state.team2Points}</Text>
             </View>
           </View>
@@ -150,14 +163,15 @@ class GameView extends React.Component {
           <View style={styles.questionContainer}>
             <Text style={styles.questionText}>{this.state.realQ}</Text>
             <Text style={styles.countText2} onActive={this.roundCounter}>{this.state.roundCount}</Text>
+            <Text style={styles.checkQ} onPress={this.nextQuestion}>Check Answer</Text>
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
+              <Text style={[styles.teamFont, styles.red]}>{this.props.obj.team1Icon}{this.props.obj.team1Name}</Text>
               <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team1Points')}>{this.state.team1Points}</Text>
             </View>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
+              <Text style={[styles.teamFont, styles.blue]}>{this.props.obj.team2Icon}{this.props.obj.team2Name}</Text>
               <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team2Points')}>{this.state.team2Points}</Text>
             </View>
           </View>
@@ -178,11 +192,11 @@ class GameView extends React.Component {
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.red]}>Red Team</Text>
+              <Text style={[styles.teamFont, styles.red]}>{this.props.obj.team1Icon}{this.props.obj.team1Name}</Text>
               <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team1Points')}>{this.state.team1Points}</Text>
             </View>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.blue]}>Blue Team</Text>
+              <Text style={[styles.teamFont, styles.blue]}>{this.props.obj.team2Icon}{this.props.obj.team2Name}</Text>
               <Text style={styles.teamFont} onPress={(e) => this.changePoints(e, 'team2Points')}>{this.state.team2Points}</Text>
             </View>
           </View>
@@ -242,10 +256,19 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 25,
     padding: 5,
-    color: "#383e4e",
-    borderWidth: 3,
-    borderRadius: 15,
-    borderColor: "#383e4e"
+    color: "white",
+    backgroundColor: "rgba(90, 145, 232, .5)",
+    borderWidth: .1,
+    borderRadius: 15
+  },
+  checkQ: {
+    marginTop: 20,
+    fontSize: 25,
+    padding: 5,
+    color: "white",
+    backgroundColor: "rgba(90, 145, 232, .5)",
+    borderWidth: .1,
+    borderRadius: 15
   },
   countText: {
     fontSize: 100,
@@ -253,7 +276,7 @@ const styles = StyleSheet.create({
     color: "#383e4e",
   },
   countText2: {
-    marginTop: 50,
+    marginTop: 20,
     fontSize: 50,
     padding: 5,
     color: "#383e4e",
@@ -281,7 +304,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   blue: {
-    color: 'rgb(121, 190, 219)',
+    color: 'rgb(90, 145, 232)',
   },
 })
 
