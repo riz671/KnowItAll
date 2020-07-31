@@ -21,18 +21,10 @@ export default class Stats_View extends React.Component {
     // to this module
     this.state = {
       isClicked: true,
-      team1Name: this.props.teamInfo.team1Name,
-      team2Name: this.props.teamInfo.team2Name,
-      team1Score: this.props.team1Points,
-      team2Score: this.props.team2Points,
-      team1Wins: this.props.teamInfo.team1Wins,
-      team1Losses: this.props.teamInfo.team2Wins,
       team1Draws: 0,
       team1Turn: true,
       statusIcon1: undefined,
       statusIcon2: undefined,
-      team1Icon: this.props.teamInfo.team1Icon,
-      team2Icon: this.props.teamInfo.team2Icon,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -44,21 +36,14 @@ export default class Stats_View extends React.Component {
   render() {
     let {
       isClicked,
-      // team1Name,
-      // team2Name,
-      // team1Score,
-      // team2Score,
-      // team1Wins,
-      // team1Losses,
       team1Draws,
       team1Turn,
       statusIcon1,
       statusIcon2,
-      // team1Icon,
-      // team2Icon,
     } = this.state;
 
-    let { team1Points, team2Points } = this.props;
+    let { team1Points, team2Points, teamInfo } = this.props;
+
     let {
       team1Name,
       team2Name,
@@ -66,7 +51,10 @@ export default class Stats_View extends React.Component {
       team2Wins,
       team1Icon,
       team2Icon,
-    } = this.props.teamInfo;
+    } = teamInfo;
+
+    team2Wins = 2;
+    team1Wins = 3;
 
     // handles icon colors
     if (team1Turn) {
@@ -106,9 +94,9 @@ export default class Stats_View extends React.Component {
 
               <StatsData
                 teamName={team1Name}
-                score={team1Score}
+                score={team1Points}
                 wins={team1Wins}
-                losses={team1Losses}
+                losses={team2Wins}
                 draws={team1Draws}
               />
             </View>
@@ -128,8 +116,8 @@ export default class Stats_View extends React.Component {
 
               <StatsData
                 teamName={team2Name}
-                score={team2Score}
-                wins={team1Losses}
+                score={team2Points}
+                wins={team2Wins}
                 losses={team1Wins}
                 draws={team1Draws}
               />
@@ -176,7 +164,7 @@ export default class Stats_View extends React.Component {
           <Image style={statusIcon2}></Image>
 
           <View>
-            <Text style={styles.partialScore}> {team1Losses} WON</Text>
+            <Text style={styles.partialScore}> {team2Wins} WON</Text>
           </View>
         </View>
       </View>
@@ -307,7 +295,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 30 / 2,
-    borderWidth: 0.25,
+    borderWidth: 0.5,
   },
   teamTitle: {
     lineHeight: 20,
