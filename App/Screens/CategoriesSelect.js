@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, Modal} from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button} from 'react-native';
+import Modal from 'react-native-modal';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -26,28 +27,28 @@ export default class CategoriesSelect extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
 
-        <Modal visible={this.state.modalVisible}>
+        <Modal isVisible={this.state.modalVisible} backdropColor={'black'}>
           <View style={styles.modal}>
             <Text style={styles.modalDescription}>Select {this.state.currentCat}?</Text>
             <View style={styles.modalButtons}>
               <TouchableOpacity  onPress={() => {this.setModalVisible(false)}}>
                 {/* <Text style={styles.modalText}>Back</Text> */}
-                <Ionicons name="md-close-circle" size={50} color="red" />
+                <Ionicons name="md-close-circle" size={50} color={'white'}/>
               </TouchableOpacity>
               <TouchableOpacity  onPress={() => this.props.history.push(`/${this.state.endpoint}`)}>
                 {/* <Text style={styles.modalText}>Play</Text> */}
-                <Ionicons name="md-checkmark-circle" size={50} color="green" />
+                <Ionicons name="md-checkmark-circle" size={50} color={'white'}/>
               </TouchableOpacity>
             </View>
           </View>
         </Modal>
 
-      <Text style={{fontSize: 35}}>Select a category!</Text>
+      <Text style={{fontSize: 35, color: 'white'}}>Select a category!</Text>
       <View style={styles.categories}>
         {this.props.categories.map((cat, i) => {
           return (
             <TouchableOpacity key={i} style={styles.button} onPress={() => {this.setModalVisible(true, cat.title, cat.endpoint)}}>
-              <Text style={{fontSize: 20}}>{cat.title}</Text>
+              <Text style={{fontSize: 20, color: 'white'}}>{cat.title}</Text>
             </TouchableOpacity>
           )
         })}
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
+    backgroundColor: '#383e4e',
   },
   categories: {
     flexDirection: 'row',
@@ -77,20 +79,21 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'dodgerblue',
+    backgroundColor: '#5A91E8',
   },
   modal: {
-    top: '30%',
+    // top: '30%',
     height: '20%',
     margin: '10%',
     borderRadius: 20,
     justifyContent: 'space-around',
     alignItems: 'center',
     alignContent: 'space-around',
-    backgroundColor: 'dodgerblue',
+    backgroundColor: '#5A91E8',
   },
   modalDescription: {
     fontSize: 20,
+    color: 'white',
     width: '90%',
     textAlign: 'center'
   },
