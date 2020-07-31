@@ -83,7 +83,11 @@ export default class App extends React.Component {
     // and icon 1 & 2 are the same on submit
     // display an alert
     if (!team1Selected && team1Icon === team2Icon) {
-      alert("Choose a different icon");
+      alert("Your icon matches Team 1, please change it");
+    }
+
+    if (!team1Selected && team1Name === team2Name) {
+      alert("Your name matches Team 1, please change it");
     }
   }
 

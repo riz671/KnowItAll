@@ -51,7 +51,8 @@ export default function TeamSelect({
     onSubmit();
     !state.team1Selected &&
     state.team2Icon &&
-    state.team1Icon !== state.team2Icon
+    state.team1Icon !== state.team2Icon &&
+    state.team1Name !== state.team2Name
       ? history.push("/select-category")
       : null;
   };
