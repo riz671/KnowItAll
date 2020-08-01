@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+    backgroundColor: '#383e4e',
   },
 
   // ====================
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 40,
     marginBottom: 10,
+    color: "white",
   },
   inputBox: {
     borderRadius: 20,
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     width: 300,
     padding: 10,
-    backgroundColor: "lightblue",
+    backgroundColor: "white",
   },
 
   teamInfo: {
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   submitButton: {
-    backgroundColor: "dodgerblue",
+    backgroundColor: "#5a91e8",
     borderRadius: 20,
     height: "100%",
     alignItems: "center",
