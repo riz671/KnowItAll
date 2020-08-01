@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   playNowButton: {
     backgroundColor: "#5a91e8",
     borderRadius: 20,
-    marginTop: 50,
+    marginBottom: 200,
     fontSize: 100,
     height: 75,
     justifyContent: "center",
