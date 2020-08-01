@@ -129,6 +129,8 @@ export default class App extends React.Component {
                     api={category.api}
                     teamInfo={this.state}
                     endRound={this.endRound}
+                    resetGame={this.resetGame}
+                    endpoint={category.endpoint}
                   />
                 )}
               />
