@@ -29,17 +29,27 @@ export default class CategoriesSelect extends React.Component {
 
         <Modal isVisible={this.state.modalVisible} backdropColor={'black'}>
           <View style={styles.modal}>
+            <Text style={styles.rulesTitle}>Rules</Text>
+
+            <View style={styles.rules}>
+              <Text style={styles.ruleText}>1. After a new question is revealed, the objective is to be the first team to answer the question.</Text>
+              <Text style={styles.ruleText}>2. Once an answer is shouted out, you may check your answer.</Text>
+              <Text style={styles.ruleText}>3. If you are correct, you receive a point. If not, the other team shall receive the point.</Text>
+              <Text style={styles.ruleText}>4. If no team answers within the 30 seconds, call a draw and award no points.</Text>
+              <Text style={styles.ruleText}>5. First team to 7 points Wins!!!</Text>
+            </View>
+
             <Text style={styles.modalDescription}>Select {this.state.currentCat}?</Text>
+
             <View style={styles.modalButtons}>
               <TouchableOpacity  onPress={() => {this.setModalVisible(false)}}>
-                {/* <Text style={styles.modalText}>Back</Text> */}
                 <Ionicons name="md-close-circle" size={50} color={'white'}/>
               </TouchableOpacity>
               <TouchableOpacity  onPress={() => this.props.history.push(`/${this.state.endpoint}`)}>
-                {/* <Text style={styles.modalText}>Play</Text> */}
                 <Ionicons name="md-checkmark-circle" size={50} color={'white'}/>
               </TouchableOpacity>
             </View>
+
           </View>
         </Modal>
 
@@ -87,14 +97,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modal: {
-    // top: '30%',
-    height: '20%',
+    height: '60%',
     margin: '10%',
     borderRadius: 20,
     justifyContent: 'space-around',
     alignItems: 'center',
     alignContent: 'space-around',
     backgroundColor: '#5A91E8',
+  },
+  rulesTitle:{
+    fontSize: 25,
+    color: 'white',
+  },
+  rules:{
+    width: '90%',
+  },
+  ruleText: {
+    color: 'white',
+    fontSize: 15,
+    padding: 5,
   },
   modalDescription: {
     fontSize: 20,
