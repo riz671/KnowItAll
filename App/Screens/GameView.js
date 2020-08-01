@@ -64,7 +64,6 @@ class GameView extends React.Component {
     }
 
     if (name === "team1Points" && this.state.team1Points > 5) {
-      this.props.endRound("team1Wins");
       Alert.alert(
         "Team 1 wins!",
         null,
@@ -79,6 +78,7 @@ class GameView extends React.Component {
           }
         ]
       );
+      this.props.endRound("team1Wins");
     }
 
     if (name === "team2Points" && this.state.roundCount < 1) {
@@ -88,7 +88,20 @@ class GameView extends React.Component {
     }
 
     if (name === "team2Points" && this.state.team2Points > 5) {
-      Alert.alert("Team 2 wins!");
+      Alert.alert(
+        "Team 2 wins!",
+        null,
+        [
+          { 
+            text: "Select a Category",
+            onPress: () => this.props.history.push("/select-category")
+          },
+          {
+            text: "Go Home",
+            onPress: this.goHome
+          }
+        ]
+      );
       this.props.endRound("team2Wins");
     }
   }
