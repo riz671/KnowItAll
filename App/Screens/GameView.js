@@ -36,13 +36,10 @@ class GameView extends React.Component {
     axios
       .get(`${this.props.api}`)
       .then((result) => {
-        this.setState(
-          {
-            question: result.data.results[0].question,
-            answer: result.data.results[0].correct_answer,
-          },
-          () => console.log(this.state.question)
-        );
+        this.setState({
+          question: result.data.results[0].question,
+          answer: result.data.results[0].correct_answer,
+        });
       })
       .then(() => {
         let string = this.state.question;
@@ -58,6 +55,8 @@ class GameView extends React.Component {
   }
 
   changePoints(e, name) {
+    let { history, path } = this.props;
+
     if (name === "team1Points" && this.state.roundCount < 1) {
       this.setState({
         team1Points: this.state.team1Points + 1,
@@ -65,8 +64,25 @@ class GameView extends React.Component {
     }
 
     if (name === "team1Points" && this.state.team1Points > 5) {
-      Alert.alert("Team 1 wins!");
       this.props.endRound("team1Wins");
+      Alert.alert(
+        "Team 1 wins!",
+        null,
+        [
+          {
+            text: "Play again",
+            onPress: () => this.props.history.push(path)
+          },
+          { 
+            text: "Select a Category",
+            onPress: () => this.props.history.push("/select-category")
+          },
+          {
+            text: "Go Home",
+            onPress: () => console.log("GO HOME")
+          }
+        ]
+      );
     }
 
     if (name === "team2Points" && this.state.roundCount < 1) {
@@ -79,7 +95,6 @@ class GameView extends React.Component {
       Alert.alert("Team 2 wins!");
       this.props.endRound("team2Wins");
     }
-    console.log(this.state.team1Points);
   }
 
   count() {
@@ -153,7 +168,6 @@ class GameView extends React.Component {
         />
       </View>
     );
-    console.log(this.props.teamInfo);
     if (this.state.countPage === true) {
       return (
         <SafeAreaView style={styles.container}>
