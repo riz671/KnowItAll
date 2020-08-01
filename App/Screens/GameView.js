@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Alert, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { Alert, StyleSheet, Text, View, SafeAreaView, TouchableHighlight } from "react-native";
 import axios from "axios";
 import Stats_View from "./StatsView.js";
 
@@ -194,7 +194,7 @@ class GameView extends React.Component {
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.red]}>
+              <Text style={{ fontSize: 25, color: this.props.teamInfo.team1Icon }}>
                 {this.props.teamInfo.team1Name}
               </Text>
               <Text
@@ -205,7 +205,7 @@ class GameView extends React.Component {
               </Text>
             </View>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.blue]}>
+              <Text style={{ fontSize: 25, color: this.props.teamInfo.team2Icon }}>
                 {this.props.teamInfo.team2Name}
               </Text>
               <Text
@@ -232,13 +232,18 @@ class GameView extends React.Component {
             <Text style={styles.countText2} onActive={this.roundCounter}>
               {this.state.roundCount}
             </Text>
-            <Text style={styles.checkQ} onPress={this.checkQuestion}>
-              Check Answer
-            </Text>
+            <TouchableHighlight
+              style={styles.button}
+              activeOpacity={0.5}
+              underlayColor="#0065d1"
+              onPress={this.checkQuestion}
+            >
+              <Text style={styles.buttonText}>Check Answer</Text>
+            </TouchableHighlight>
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.red]}>
+              <Text style={{ fontSize: 25, color: this.props.teamInfo.team1Icon }}>
                 {this.props.teamInfo.team1Name}
               </Text>
               <Text
@@ -249,7 +254,7 @@ class GameView extends React.Component {
               </Text>
             </View>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.blue]}>
+              <Text style={{ fontSize: 25, color: this.props.teamInfo.team2Icon }}>
                 {this.props.teamInfo.team2Name}
               </Text>
               <Text
@@ -274,13 +279,18 @@ class GameView extends React.Component {
           <View style={styles.questionContainer}>
             <Text style={styles.answer}>Answer: </Text>
             <Text style={styles.questionText2}>{this.state.answer}</Text>
-            <Text style={styles.nextQ} onPress={this.nextQuestion}>
-              Next Question
-            </Text>
+            <TouchableHighlight
+              style={styles.button}
+              activeOpacity={0.5}
+              underlayColor="#0065d1"
+              onPress={this.nextQuestion}
+            >
+              <Text style={styles.buttonText}>Next Question</Text>
+            </TouchableHighlight>
           </View>
           <View style={styles.scoreContainer}>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.red]}>
+              <Text style={{ fontSize: 25, color: this.props.teamInfo.team1Icon }}>
                 {this.props.teamInfo.team1Name}
               </Text>
               <Text
@@ -291,7 +301,7 @@ class GameView extends React.Component {
               </Text>
             </View>
             <View style={styles.teamContainer}>
-              <Text style={[styles.teamFont, styles.blue]}>
+              <Text style={{ fontSize: 25, color: this.props.teamInfo.team2Icon }}>
                 {this.props.teamInfo.team2Name}
               </Text>
               <Text
@@ -343,7 +353,7 @@ const styles = StyleSheet.create({
     height: 350,
     width: 350,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
   questionText: {
     fontSize: 30,
@@ -362,23 +372,19 @@ const styles = StyleSheet.create({
     padding: 5,
     color: "#383e4e",
   },
-  nextQ: {
-    marginTop: 50,
-    fontSize: 25,
-    padding: 5,
-    color: "white",
-    backgroundColor: "rgba(90, 145, 232, .5)",
-    borderWidth: 0.1,
+  button: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 30,
+    width: 175,
+    backgroundColor: '#5a91e8',
+    marginTop: 10,
     borderRadius: 15,
+    alignContent: "flex-end"
   },
-  checkQ: {
-    marginTop: 20,
-    fontSize: 25,
-    padding: 5,
+  buttonText: {
+    fontSize: 20,
     color: "white",
-    backgroundColor: "rgba(90, 145, 232, .5)",
-    borderWidth: 0.1,
-    borderRadius: 15,
   },
   countText: {
     fontSize: 100,
@@ -408,13 +414,7 @@ const styles = StyleSheet.create({
   },
   teamFont: {
     fontSize: 25,
-    color: "rgba(255, 255, 255, .3)",
-  },
-  red: {
-    color: "red",
-  },
-  blue: {
-    color: "rgb(90, 145, 232)",
+    color: "white",
   },
 });
 
