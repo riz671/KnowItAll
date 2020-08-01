@@ -27,7 +27,7 @@ export default function TeamSelect({
     "mediumseagreen",
     "gold",
     "gray",
-    "purple",
+    "palevioletred",
   ];
 
   if (state.team1Selected) {
