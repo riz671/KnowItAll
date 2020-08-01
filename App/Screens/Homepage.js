@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -10,11 +10,29 @@ import {
 } from "react-native";
 
 const Homepage = ({ history }) => {
+  const logoFadeIn = useRef(new Animated.Value(0)).current;
+
+  React.useEffect(() => {
+    Animated.timing(logoFadeIn, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  }, [logoFadeIn]);
   return (
     <SafeAreaView style={styles.page}>
       <Text style={styles.title}>Know it all</Text>
       <View style={styles.page}>
-        <Image source={require("../assets/mainLogo.png")} style={styles.logo} />
+        <Animated.View
+          style={{
+            opacity: logoFadeIn,
+          }}
+        >
+          <Image
+            source={require("../assets/mainLogo.png")}
+            style={styles.logo}
+          />
+        </Animated.View>
       </View>
       <TouchableHighlight
         style={styles.playNowButton}
