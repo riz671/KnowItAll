@@ -1,56 +1,74 @@
-import React from 'react';
-import { Image, StyleSheet, SafeAreaView, View, Text, TouchableHighlight } from 'react-native';
+import React, { useRef, useEffect } from "react";
+import {
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+  TouchableHighlight,
+  Animated,
+} from "react-native";
 
 const Homepage = ({ history }) => {
+  const logoFadeIn = useRef(new Animated.Value(0)).current;
+
+  React.useEffect(() => {
+    Animated.timing(logoFadeIn, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  }, [logoFadeIn]);
   return (
     <SafeAreaView style={styles.page}>
-
-      <View>
-        <Text style={styles.title}>Know It All</Text>
+      <Text style={styles.title}>Know it all</Text>
+      <View style={styles.page}>
+        <Animated.View
+          style={{
+            opacity: logoFadeIn,
+          }}
+        >
+          <Image
+            source={require("../assets/mainLogo.png")}
+            style={styles.logo}
+          />
+        </Animated.View>
       </View>
-
-      <View>
-        <Image
-          source={require('../assets/splash.png')}
-          style={styles.logo}
-        />
-      </View>
-
-      <View>
-        <TouchableHighlight
-          style={styles.playNowButton}
-          onPress={() => history.push('/team-select')}
-          activeOpacity={0.5}
-          underlayColor='#0065d1'
-          >
-          <Text style={styles.playNow}>Play Now</Text>
-        </TouchableHighlight>
-      </View>
-
+      <TouchableHighlight
+        style={styles.playNowButton}
+        onPress={() => history.push("/team-select")}
+        activeOpacity={0.5}
+        underlayColor="#0065d1"
+      >
+        <Text style={styles.playNow}>Play Now</Text>
+      </TouchableHighlight>
     </SafeAreaView>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#383e4e',
-    width: '100%',
-
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#383e4e",
+    width: "100%",
   },
   logo: {
-    height: 200,
-    width: 200,
-    tintColor: '#fff',
+    height: 250,
+    width: 250,
+    marginBottom: 40,
+    marginLeft: 30,
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
-    color: '#fff',
+    color: "#fff",
+    marginTop: 125,
     fontSize: 50,
   },
   playNow: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 25,
   },
   playNowButton: {
@@ -59,10 +77,10 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 100,
     height: 75,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     width: 200,
-  }
-})
+  },
+});
 
 export default Homepage;
