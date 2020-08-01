@@ -25,6 +25,7 @@ class GameView extends React.Component {
     this.roundCounter = this.roundCounter.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
     this.checkQuestion = this.checkQuestion.bind(this);
+    this.goHome = this.goHome.bind(this);
   }
 
   componentDidMount() {
@@ -55,7 +56,6 @@ class GameView extends React.Component {
   }
 
   changePoints(e, name) {
-    let { history, path } = this.props;
 
     if (name === "team1Points" && this.state.roundCount < 1) {
       this.setState({
@@ -69,17 +69,13 @@ class GameView extends React.Component {
         "Team 1 wins!",
         null,
         [
-          {
-            text: "Play again",
-            onPress: () => this.props.history.push(path)
-          },
           { 
             text: "Select a Category",
             onPress: () => this.props.history.push("/select-category")
           },
           {
             text: "Go Home",
-            onPress: () => console.log("GO HOME")
+            onPress: this.goHome
           }
         ]
       );
@@ -156,6 +152,11 @@ class GameView extends React.Component {
       gamePage: false,
       roundFinish: true,
     });
+  }
+
+  goHome() {
+    this.props.resetGame();
+    this.props.history.push("/");
   }
 
   render() {
