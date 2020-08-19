@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,24 +6,17 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
-  Button,
-} from "react-native";
-import StatsData from "./StatsViewComp/StatsData.js";
-import { LinearGradient } from "expo-linear-gradient";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import StatsData from './StatsViewComp/StatsData';
 
-export default class Stats_View extends React.Component {
+export default class StatsView extends React.Component {
   constructor(props) {
     super(props);
-    // change state's key values to props
-    // once it's known what is passed
-    // to this module
     this.state = {
       displaySmallStatsPage: true,
       team1Draws: 0,
       team1Turn: true,
-      statusIcon1: undefined,
-      statusIcon2: undefined,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -34,21 +26,19 @@ export default class Stats_View extends React.Component {
   }
 
   render() {
-    let {
+    const {
       displaySmallStatsPage,
       team1Draws,
       team1Turn,
-      statusIcon1,
-      statusIcon2,
     } = this.state;
 
-    let {
+    const {
       team1Points,
       team2Points,
       teamInfo,
     } = this.props;
 
-    let {
+    const {
       team1Name,
       team2Name,
       team1Wins,
@@ -57,26 +47,17 @@ export default class Stats_View extends React.Component {
       team2Icon,
     } = teamInfo;
 
-    // handles icon colors
-    if (team1Turn) {
-      statusIcon1 = [styles.iconTemplate, styles.activeIcon];
-      statusIcon2 = [styles.iconTemplate, styles.inactiveIcon];
-    } else {
-      statusIcon1 = [styles.iconTemplate, styles.inactiveIcon];
-      statusIcon2 = [styles.iconTemplate, styles.activeIcon];
-    }
-
     // stores structure for detailed stats page
     const detailedStats = (
       <View style={styles.visibleContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["rgba(255, 255, 255, .3)", "rgba(255, 255, 255, .3)"]}
+          colors={['rgba(255, 255, 255, .3)', 'rgba(255, 255, 255, .3)']}
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             right: 0,
             top: 0,
-            height: "100%",
+            height: '100%',
             borderRadius: 20,
           }}
         />
@@ -87,10 +68,9 @@ export default class Stats_View extends React.Component {
               <View style={styles.teamHeader}>
                 <Image
                   style={[styles.teamLogo, { backgroundColor: team1Icon }]}
-                ></Image>
+                />
 
                 <Text style={styles.teamTitle}>{team1Name}</Text>
-                <Image style={statusIcon1}></Image>
               </View>
 
               <StatsData
@@ -109,10 +89,9 @@ export default class Stats_View extends React.Component {
               <View style={styles.teamHeader}>
                 <Image
                   style={[styles.teamLogo, { backgroundColor: team2Icon }]}
-                ></Image>
+                />
 
                 <Text style={styles.teamTitle}>{team2Name}</Text>
-                <Image style={statusIcon2}></Image>
               </View>
 
               <StatsData
@@ -131,13 +110,13 @@ export default class Stats_View extends React.Component {
     const partialStats = (
       <View style={styles.partialContainer} onPress={this.toggleClick}>
         <LinearGradient
-          colors={["rgba(255, 255, 255, .3)", "rgba(255, 255, 255, .3)"]}
+          colors={['rgba(255, 255, 255, .3)', 'rgba(255, 255, 255, .3)']}
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             right: 0,
             top: 0,
-            height: "170%",
+            height: '170%',
             borderRadius: 20,
           }}
         />
@@ -147,10 +126,13 @@ export default class Stats_View extends React.Component {
             <Text style={styles.partialTitle}>{team1Name}</Text>
           </View>
 
-          <Image style={statusIcon1}></Image>
-
           <View>
-            <Text style={styles.partialScore}> {team1Wins} WON</Text>
+            <Text style={styles.partialScore}>
+              {'   '}
+              {team1Wins}
+              {' '}
+              WON
+            </Text>
           </View>
         </View>
 
@@ -162,16 +144,19 @@ export default class Stats_View extends React.Component {
             <Text style={styles.partialTitle}>{team2Name}</Text>
           </View>
 
-          <Image style={statusIcon2}></Image>
-
           <View>
-            <Text style={styles.partialScore}> {team2Wins} WON</Text>
+            <Text style={styles.partialScore}>
+              {'   '}
+              {team2Wins}
+              {' '}
+              WON
+            </Text>
           </View>
         </View>
       </View>
     );
 
-    const correctContainer = this.state.displaySmallStatsPage
+    const correctContainer = displaySmallStatsPage
       ? partialStats
       : detailedStats;
 
@@ -187,31 +172,29 @@ export default class Stats_View extends React.Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    display: "flex",
-    alignItems: "center",
-    // top: "6.3%",
-    height: "100%",
-    width: "100%",
+    display: 'flex',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%',
   },
   // ====================
   // Partial Container Styles
   // ====================
   partialContainer: {
-    justifyContent: "center",
-    flexDirection: "row",
+    justifyContent: 'center',
+    flexDirection: 'row',
     borderRadius: 20,
-    height: "100%",
+    height: '100%',
     padding: 10,
-    width: "100%",
-    backgroundColor: "#383e4e",
+    width: '100%',
+    backgroundColor: '#383e4e',
   },
   partialTeamBox: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
     paddingHorizontal: 10,
     flex: 1,
-    // backgroundColor: "#fff",
   },
   // ====================
   // Status Icon Style
@@ -226,10 +209,10 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   activeIcon: {
-    backgroundColor: "#00FA9A",
+    backgroundColor: '#00FA9A',
   },
   inactiveIcon: {
-    backgroundColor: "#DC143C",
+    backgroundColor: '#DC143C',
   },
   // ====================
   // Partial Stats Detail Style
@@ -239,26 +222,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
     lineHeight: 30,
     fontSize: 20,
-    color: "#fff",
+    color: '#fff',
   },
   partialScore: {
     flex: 3,
     lineHeight: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 20,
-    color: "#fff",
+    color: '#fff',
   },
   // ====================
   // Main Container
   // ====================
   visibleContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: 20,
-    width: "100%",
+    width: '100%',
     height: 185,
-    color: "black",
+    color: 'black',
     zIndex: 5,
-    backgroundColor: "#383e4e",
+    backgroundColor: '#383e4e',
   },
   innerContainer: {
     margin: 10,
@@ -267,18 +250,16 @@ const styles = StyleSheet.create({
   // Team Container Styles
   // ====================
   teamFlexContainer: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     borderRadius: 20,
     flex: 1,
-    // backgroundColor: "#fff",
-    // height: 200,
   },
   teamBox: {
     margin: 5,
     marginHorizontal: 14,
     width: 160,
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: 20,
     height: 150,
   },
@@ -286,9 +267,9 @@ const styles = StyleSheet.create({
   // Team Header Styles
   // ====================
   teamHeader: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 6,
     paddingBottom: 0,
   },
@@ -304,10 +285,10 @@ const styles = StyleSheet.create({
     marginBottom: -4,
     paddingLeft: 8,
     paddingRight: 4,
-    color: "#fff",
+    color: '#fff',
   },
   divider: {
     borderLeftWidth: 1.5,
-    borderLeftColor: "rgba(0, 0, 0, 0.5)",
+    borderLeftColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
