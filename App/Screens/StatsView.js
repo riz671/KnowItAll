@@ -25,8 +25,6 @@ export default class Stats_View extends React.Component {
       team1Turn: true,
       statusIcon1: undefined,
       statusIcon2: undefined,
-      team1Points: this.props.team1Points,
-      team2Points: this.props.team2Points,
     };
     this.toggleClick = this.toggleClick.bind(this);
   }
@@ -42,9 +40,13 @@ export default class Stats_View extends React.Component {
       team1Turn,
       statusIcon1,
       statusIcon2,
+    } = this.state;
+
+    let {
       team1Points,
       team2Points,
-    } = this.state;
+      teamInfo,
+    } = this.props;
 
     let {
       team1Name,
@@ -53,7 +55,7 @@ export default class Stats_View extends React.Component {
       team2Wins,
       team1Icon,
       team2Icon,
-    } = this.props.teamInfo;
+    } = teamInfo;
 
     // handles icon colors
     if (team1Turn) {
