@@ -31,13 +31,11 @@ export default function TeamSelect({
     currentTeam = 'team1Name';
     currentIcon = 'team1Icon';
     finalIcon = state.team1Icon;
-    finalTeamName = state.team1Name;
   } else {
     message = 'Enter Team 2 Name:';
     currentTeam = 'team2Name';
     currentIcon = 'team2Icon';
     finalIcon = state.team2Icon;
-    finalTeamName = state.team2Name;
   }
 
   let textInput = null;
