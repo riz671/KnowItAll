@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,10 +6,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
-} from "react-native";
-import StatsData from "./StatsViewComp/StatsData.js";
-import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+} from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function TeamSelect({
   history,
@@ -19,29 +16,26 @@ export default function TeamSelect({
   iconSelection,
   onSubmit,
 }) {
-  let message, currentTeam, currentIcon, finalIcon, finalTeamName;
-  console.log(state);
-  let colors = [
-    "crimson",
-    "steelblue",
-    "mediumseagreen",
-    "gold",
-    "gray",
-    "palevioletred",
+  let message, currentTeam, currentIcon, finalIcon;
+  const colors = [
+    'crimson',
+    'steelblue',
+    'mediumseagreen',
+    'gold',
+    'gray',
+    'palevioletred',
   ];
 
   if (state.team1Selected) {
-    message = "Enter Team 1 Name:";
-    currentTeam = "team1Name";
-    currentIcon = "team1Icon";
+    message = 'Enter Team 1 Name:';
+    currentTeam = 'team1Name';
+    currentIcon = 'team1Icon';
     finalIcon = state.team1Icon;
-    finalTeamName = state.team1Name;
   } else {
-    message = "Enter Team 2 Name:";
-    currentTeam = "team2Name";
-    currentIcon = "team2Icon";
+    message = 'Enter Team 2 Name:';
+    currentTeam = 'team2Name';
+    currentIcon = 'team2Icon';
     finalIcon = state.team2Icon;
-    finalTeamName = state.team2Name;
   }
 
   let textInput = null;
@@ -49,11 +43,11 @@ export default function TeamSelect({
   const handleSubmit = () => {
     textInput.clear();
     onSubmit();
-    !state.team1Selected &&
-    state.team2Icon &&
-    state.team1Icon !== state.team2Icon &&
-    state.team1Name !== state.team2Name
-      ? history.push("/select-category")
+    !state.team1Selected
+    && state.team2Icon
+    && state.team1Icon !== state.team2Icon
+    && state.team1Name !== state.team2Name
+      ? history.push('/select-category')
       : null;
   };
 
@@ -108,9 +102,9 @@ export default function TeamSelect({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
     backgroundColor: '#383e4e',
   },
 
@@ -119,30 +113,29 @@ const styles = StyleSheet.create({
   // ====================
 
   teamNameInput: {
-    alignItems: "center",
-    height: "30%",
-    justifyContent: "space-around",
+    alignItems: 'center',
+    height: '30%',
+    justifyContent: 'space-around',
     marginBottom: 60,
   },
   message: {
     fontSize: 40,
     marginBottom: 10,
-    color: "white",
+    color: 'white',
   },
   inputBox: {
     borderRadius: 20,
     borderWidth: 1,
-    // underline: 5,
     fontSize: 30,
     width: 300,
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 
   teamInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   // ====================
@@ -150,15 +143,15 @@ const styles = StyleSheet.create({
   // ====================
 
   iconMenu: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 60,
-    width: "90%",
+    width: '90%',
   },
   colorSelect: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignContent: "space-around",
-    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignContent: 'space-around',
+    width: '100%',
   },
   selectedIcon: {
     marginRight: 10,
@@ -169,21 +162,21 @@ const styles = StyleSheet.create({
   // ====================
 
   submitContainer: {
-    width: "70%",
+    width: '70%',
     height: 60,
     margin: 10,
   },
   submitButton: {
-    backgroundColor: "#5a91e8",
+    backgroundColor: '#5a91e8',
     borderRadius: 20,
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   submitText: {
-    color: "white",
-    justifyContent: "center",
-    alignItems: "center",
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: 30,
   },
 });
